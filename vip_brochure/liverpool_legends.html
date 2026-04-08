@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loch Lomond Travel - VIP Experience</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Base & Font Styles --- */
+        :root {
+            --font-body: 'Raleway', sans-serif;
+            --color-primary: #007DC3;
+            --color-secondary: #AECAEC;
+            --color-highlight: #FF7754;
+            --color-vip: #D4AF37; /* Gold */
+            --color-text: #333;
+            --color-light-bg: #f8f9fa;
+            --color-white: #FFFFFF;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            font-weight: 400; 
+            color: var(--color-text);
+            line-height: 1.45; 
+            background-color: #e9e9e9;
+            display: flex;
+            justify-content: center;
+            padding: 2rem 0;
+        }
+
+        /* --- Page Container --- */
+        .brochure-page {
+            width: 210mm;
+            min-height: 297mm;
+            background-color: var(--color-white);
+            padding: 15mm; 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Header --- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .header-content {
+            flex-grow: 1;
+        }
+
+        .vip-badge {
+            display: inline-block;
+            background-color: var(--color-vip);
+            color: var(--color-white);
+            font-size: 0.75rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 3px 8px;
+            border-radius: 2px;
+            margin-bottom: 4px;
+        }
+
+        .header-content h1 {
+            font-size: 1.9rem; 
+            font-weight: 900; 
+            color: var(--color-primary);
+            margin: 0;
+            line-height: 1;
+            text-transform: uppercase; 
+        }
+
+        .price-duration-row {
+            display: flex;
+            align-items: baseline;
+            margin-top: 4px;
+        }
+
+        .price-duration-row .price {
+            font-size: 1.5rem;
+            font-weight: 900; 
+            color: var(--color-highlight);
+        }
+
+        .price-duration-row .duration {
+            font-size: 1.1rem;
+            font-weight: 700; 
+            color: #777;
+            margin-left: 15px;
+        }
+        
+        .header .logo {
+            max-width: 135px; 
+            height: auto;
+            margin-left: 20px;
+        }
+
+        /* --- 3-Image Gallery Grid --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+
+        .gallery-grid img {
+            width: 100%;
+            height: 115px; 
+            object-fit: cover;
+            border-radius: 2px;
+        }
+
+        /* --- Main Layout (Sidebar Left, Content Right) --- */
+        .main-content {
+            display: grid;
+            grid-template-columns: 0.45fr 1fr; /* Sidebar narrower */
+            gap: 25px; 
+            align-items: start;
+            flex-grow: 0.25; 
+        }
+
+        /* --- Sidebar Styles --- */
+        .sidebar {
+            background-color: var(--color-light-bg);
+            padding: 12px;
+            border-radius: 4px;
+            border: 1px solid #eee;
+            font-size: 0.75rem; 
+            line-height: 1.35;
+        }
+
+        .sidebar h2 {
+            font-size: 0.85rem;
+            font-weight: 900;
+            color: var(--color-primary);
+            border-bottom: 2px solid var(--color-vip); 
+            padding-bottom: 3px;
+            margin-bottom: 8px;
+            margin-top: 15px; 
+            text-transform: uppercase;
+        }
+        
+        .sidebar h2:first-child {
+            margin-top: 0;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 4px; 
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .sidebar li::before {
+            content: '▪';
+            color: var(--color-vip);
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 1.2em;
+            line-height: 1.1;
+        }
+
+        /* --- New: 2-Column Pickup List --- */
+        .sidebar .pickup-list-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 10px;
+        }
+
+        .date-list p {
+            margin: 0 0 4px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .date-list strong {
+            color: var(--color-highlight);
+        }
+
+        /* --- Detailed Content Styles --- */
+        .details-column h2 {
+            font-size: 1rem;
+            font-weight: 900;
+            color: var(--color-primary);
+            margin-bottom: 6px;
+            margin-top: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 2px;
+        }
+        
+        .details-column h2:first-child {
+            margin-top: 0;
+        }
+
+        .description-text {
+            font-size: 0.9rem;
+            color: #333;
+            margin-bottom: 8px;
+            text-align: justify;
+            line-height: 1.5;
+        }
+
+        /* --- Footer --- */
+        .footer {
+            margin-top: 15px; 
+            padding-top: 10px; 
+            border-top: 1px solid #eee;
+            text-align: center;
+        }
+
+        .book-button {
+            display: inline-block;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 900; 
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            padding: 10px 30px; 
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+        
+        .book-button:hover {
+            background-color: #005a8f; 
+        }
+
+        /* --- Print Styles --- */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 15mm;
+            }
+            body {
+                background-color: var(--color-white);
+                padding: 0;
+            }
+            .brochure-page {
+                width: 100%;
+                box-shadow: none;
+                padding: 0;
+                border: none;
+            }
+            .sidebar {
+                background-color: #f8f9fa !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .vip-badge {
+                background-color: #D4AF37 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .book-button {
+                background-color: var(--color-primary) !important;
+                color: var(--color-white) !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .sidebar h2 {
+                border-bottom: 2px solid #D4AF37 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="brochure-page">
+
+        <header class="header">
+            <div class="header-content">
+                <span class="vip-badge">VIP Experience</span>
+                <h1>Liverpool Legends Stadium Tour</h1>
+                <div class="price-duration-row">
+                    <span class="price">From Only £159!</span>
+                    <span class="duration">2 Days</span>
+                </div>
+            </div>
+            <img src="https://lochlomondtravel.com/images/general/logo.png" alt="Loch Lomond Travel Logo" class="logo">
+        </header>
+
+        <div class="gallery-grid">
+            <img src="https://lochlomondtravel.com/images/lfcstadiumtour.jpg" alt="Anfield Stadium">
+            <img src="https://lochlomondtravel.com/images/legendsqanda.jpg" alt="Legends Q&A">
+            <img src="https://lochlomondtravel.com/images/bill_shankly.jpg" alt="Bill Shankly Statue">
+        </div>
+
+        <main class="main-content">
+
+            <aside class="sidebar">
+                <h2>What's Included?</h2>
+                <ul>
+                    <li>Return coach travel with reserved seating</li>
+                    <li>One night Dinner, Bed & Breakfast at the Royal Clifton Hotel, Southport</li>
+                    <li>Entry to the Official Liverpool FC Stadium Tour</li>
+                    <li>Access to press room, dressing rooms, Anfield sign & dugout</li>
+                    <li><strong>One-hour exclusive Q&A with a Liverpool Legend</strong></li>
+                    <li>Guided Liverpool City Football Tour</li>
+                    <li><strong>Deposit: £50 per person</strong></li>
+                </ul>
+
+                <h2>Departure Dates</h2>
+                <div class="date-list">
+                    <p>Sat 24 Jan, 2026 <strong>£159pp</strong></p>
+                    <p>Sat 28 Feb, 2026 <strong>£159pp</strong></p>
+                    <p>Sat 28 Mar, 2026 <strong>£159pp</strong></p>
+                    <p>Sat 18 Apr, 2026 <strong>£159pp</strong></p>
+                </div>
+                
+                <h2>Pickup Points</h2>
+                <ul class="pickup-list-2col">
+                    <li>Ayr</li>
+                    <li>Bathgate</li>
+                    <li>Carlisle</li>
+                    <li>Dundee</li>
+                    <li>Falkirk</li>
+                    <li>Glasgow</li>
+                    <li>Gretna</li>
+                    <li>Halbeath</li>
+                    <li>Hamilton</li>
+                    <li>Irvine</li>
+                    <li>Kilmarnock</li>
+                </ul>
+            </aside>
+            
+            <div class="details-column">
+                
+                <h2>Stadium Tour & Legend Q&A</h2>
+                <p class="description-text">
+                    This is a dream day out for any Liverpool fan. Step behind the scenes at Anfield with access to iconic areas including the press room, dressing rooms, the famous <em>This is Anfield</em> sign, the dugout, and the legendary Kop Stand. You’ll also have time to explore the club’s immersive museum.
+                </p>
+                <p class="description-text">
+                    What makes this truly special is the <strong>exclusive Q&A session</strong> with a true Liverpool legend. Previous hosts include Phil Neal, Jan Molby, Phil Thompson, and Alan Kennedy—each bringing their own humour and insight from their time at the club.
+                </p>
+
+                <h2>Liverpool City Football Tour</h2>
+                <p class="description-text">
+                    This unique guided tour takes you through the heart of Liverpool, shining a light on the city’s deep football roots. You’ll travel through areas rich in history, with stops including the Hillsborough Memorial, the location of Bill Shankly’s iconic St George’s Hall speech, and Everton Brow. It’s an atmospheric experience, layered with crowd sound effects and guided commentary from experts who know and love the city.
+                </p>
+
+                <h2>The Royal Clifton Hotel</h2>
+                <p class="description-text">
+                    Overlooking the seafront, the Royal Clifton Hotel in Southport is full of character and charm. It offers comfortable en-suite bedrooms and a welcoming atmosphere—the perfect base to relax and swap stories after an unforgettable day.
+                </p>
+                
+            </div>
+
+        </main>
+
+        <footer class="footer">
+            <a href="https://lochlomondtravel.com/itineraries/10231-liverpool-legends-stadium-tour" class="book-button" target="_blank">
+                Book Your VIP Experience Online
+            </a>
+        </footer>
+
+    </div>
+
+</body>
+</html>

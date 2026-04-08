@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loch Lomond Travel - RHS Chelsea Flower Show</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Base & Font Styles --- */
+        :root {
+            --font-body: 'Raleway', sans-serif;
+            --color-primary: #007DC3;     /* Brand Blue */
+            --color-secondary: #e1eff9;   /* Very Light Blue Background */
+            --color-accent: #FF7754;      /* Brand Orange */
+            --color-text: #333;
+            --color-white: #FFFFFF;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            font-weight: 400; 
+            color: var(--color-text);
+            line-height: 1.5; 
+            background-color: #e9e9e9;
+            display: flex;
+            justify-content: center;
+            padding: 2rem 0;
+        }
+
+        /* --- Page Container --- */
+        .brochure-page {
+            width: 210mm;
+            min-height: 297mm;
+            background-color: var(--color-white);
+            padding: 15mm; 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Header Section --- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--color-primary);
+            margin-bottom: 15px;
+        }
+
+        .header-content .category-tag {
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .header-content h1 {
+            font-size: 1.9rem;
+            font-weight: 900; 
+            color: var(--color-primary);
+            margin: 0;
+            line-height: 1;
+        }
+
+        .header-content .subtitle-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 5px;
+        }
+
+        .header-content .subtitle {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #555;
+        }
+
+        .header-content .duration-badge {
+            background-color: var(--color-primary);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        
+        .header .logo {
+            max-width: 130px; 
+            height: auto;
+            margin-left: 20px;
+            margin-bottom: 5px;
+        }
+
+        /* --- Hero Image --- */
+        .hero-banner {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        /* --- Main Layout --- */
+        .main-content {
+            display: grid;
+            grid-template-columns: 0.38fr 1fr; /* Sidebar narrower */
+            gap: 25px;
+            align-items: start;
+            /* Tweak: Removed flex-grow so it doesn't stretch unnecessarily */
+        }
+
+        /* --- Sidebar --- */
+        .sidebar {
+            background-color: var(--color-secondary);
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .sidebar h3 {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            margin-top: 15px;
+            border-bottom: 1px solid #cadbe9;
+            padding-bottom: 2px;
+        }
+        
+        .sidebar h3:first-of-type {
+            margin-top: 0;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 4px;
+            padding-left: 10px;
+            position: relative;
+            line-height: 1.3;
+        }
+
+        .sidebar li::before {
+            content: '•';
+            color: var(--color-accent);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Date Table for Multiple Dates */
+        .sidebar-dates-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.75rem;
+            margin-top: 5px;
+        }
+        .sidebar-dates-table td {
+            padding: 3px 0;
+            border-bottom: 1px solid #dcebf7;
+        }
+        .sidebar-dates-table tr:last-child td {
+            border-bottom: none;
+        }
+        .sidebar-dates-table .price-col {
+            text-align: right;
+            font-weight: 800;
+            color: var(--color-accent);
+        }
+
+        /* --- Content Column --- */
+        .content-col h2 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+            border-left: 4px solid var(--color-accent);
+            padding-left: 10px;
+            line-height: 1.2;
+            margin-top: 0;
+        }
+        
+        .content-col h2:not(:first-child) {
+            margin-top: 15px;
+        }
+
+        .content-col p {
+            margin-bottom: 10px;
+            text-align: justify;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .content-img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+
+        .hotel-box {
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        .hotel-box h3 {
+            font-size: 0.9rem;
+            color: var(--color-primary);
+            margin: 0 0 5px 0;
+        }
+        .hotel-box p {
+            font-size: 0.8rem;
+            margin: 0;
+            text-align: left;
+        }
+
+        /* --- Footer --- */
+        .footer {
+            /* Tweak: Added 20px margin top */
+            margin-top: 20px; 
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .deposit-text {
+            font-weight: 700;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .book-button {
+            background-color: var(--color-accent);
+            color: white;
+            padding: 10px 25px;
+            text-decoration: none;
+            font-weight: 800;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            /* Ensure background prints */
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        /* --- Print Styles --- */
+        @media print {
+            @page { margin: 15mm; }
+            body { background-color: white; padding: 0; }
+            .brochure-page { width: 100%; box-shadow: none; padding: 0; }
+            
+            /* Force colors for PDF export */
+            .sidebar, .hotel-box { 
+                background-color: #f0f8ff !important; 
+                -webkit-print-color-adjust: exact; 
+                print-color-adjust: exact; 
+            }
+            .book-button { 
+                background-color: #FF7754 !important; 
+                color: white !important;
+                -webkit-print-color-adjust: exact; 
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="brochure-page">
+
+        <header class="header">
+            <div class="header-content">
+                <span class="category-tag">Sports & Special Events</span>
+                <h1>RHS Chelsea Flower Show</h1>
+                <div class="subtitle-row">
+                    <span class="subtitle">& Kew Gardens</span>
+                    <span class="duration-badge">4 Days</span>
+                </div>
+            </div>
+            <img src="https://lochlomondtravel.com/images/general/logo.png" alt="Loch Lomond Travel Logo" class="logo">
+        </header>
+
+        <img src="https://lochlomondtravel.com/images/rhscfs_2.jpg" alt="Chelsea Flower Show" class="hero-banner">
+
+        <main class="main-content">
+
+            <aside class="sidebar">
+                
+                <h3>Dates & Prices</h3>
+                <table class="sidebar-dates-table">
+                    <tr>
+                        <td>Fri 22 May, 2026</td>
+                        <td class="price-col">£439pp</td>
+                    </tr>
+                </table>
+
+                <h3>What's Included?</h3>
+                <ul>
+                    <li>Return luxury coach travel</li>
+                    <li>3 Nights Dinner, Bed & Breakfast</li>
+                    <li><strong>Full day at Chelsea Flower Show</strong> (ticket included)</li>
+                    <li><strong>Full day at Kew Gardens</strong> (ticket included)</li>
+                    <li>Visit to RHS Garden Harlow Carr</li>
+                </ul>
+
+                <h3>Pickup Points</h3>
+                <ul>
+                    <li>Carlisle</li>
+                    <li>Dundee</li>
+                    <li>Falkirk</li>
+                    <li>Glasgow</li>
+                    <li>Gretna Gateway</li>
+                    <li>Halbeath</li>
+                    <li>Hamilton</li>
+                    <li>Perth</li>
+                </ul>
+            </aside>
+
+            <div class="content-col">
+                
+                <h2>RHS Chelsea Flower Show</h2>
+                <p>
+                    Step into the magical world of the Chelsea Flower Show, where every May, London's Royal Hospital Chelsea transforms into Britain's most prestigious garden festival. Discover breathtaking show gardens where top designers push the boundaries of creativity. The heart of the show, the magnificent Great Pavilion, feels like a floral wonderland, filled with spectacular displays from the country's finest nurseries. It's more than just a flower show – it's a celebration of the very best in British gardening.
+                </p>
+
+                <h2>Royal Botanic Gardens, Kew</h2>
+                <p>
+                    Step into a world of stunning plants, glasshouses and peaceful landscapes at the Royal Botanic Gardens, Kew. With over 300 acres to explore, highlights include the famous Palm House, the treetop walkway, and beautifully kept gardens from all over the world. Whether you’re a keen gardener or just enjoy a relaxing day surrounded by nature, Kew is a true delight.
+                </p>
+                <img src="https://lochlomondtravel.com/images/kew_gardens.jpg" alt="Kew Gardens" class="content-img">
+
+                <div class="hotel-box">
+                    <h3>Select Hotel</h3>
+                    <p>
+                        Enjoy a relaxing stay at a carefully selected hotel, chosen with comfort and convenience in mind for your garden-themed getaway. With welcoming ensuite rooms, a quality dinner each evening and a hearty breakfast each morning, it's the perfect base to unwind.
+                    </p>
+                </div>
+
+            </div>
+
+        </main>
+
+        <footer class="footer">
+            <div class="deposit-text">Deposit: £100 per person</div>
+            <a href="https://lochlomondtravel.com/itineraries/10209-rhs-chelsea-flower-show-and-kew-gardens" class="book-button" target="_blank">Book This Event Online</a>
+        </footer>
+
+    </div>
+
+</body>
+</html>

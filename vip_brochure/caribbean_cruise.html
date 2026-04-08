@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loch Lomond Travel - Jewels of the Caribbean (2 Page)</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* --- Base Styles --- */
+        :root {
+            --font-body: 'Raleway', sans-serif;
+            --color-primary: #007DC3;
+            --color-secondary: #AECAEC;
+            --color-highlight: #FF7754;
+            --color-vip: #D4AF37;
+            /* Gold */
+            --color-text: #333;
+            --color-light-bg: #f8f9fa;
+            --color-white: #FFFFFF;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            font-weight: 400;
+            color: var(--color-text);
+            line-height: 1.5;
+            background-color: #555;
+            /* Dark background to see pages clearly */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 0;
+            gap: 2rem;
+        }
+
+        /* --- Page Container --- */
+        .brochure-page {
+            width: 210mm;
+            height: 297mm;
+            /* Fixed A4 height */
+            background-color: var(--color-white);
+            padding: 15mm;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            /* Ensures no spillover */
+        }
+
+        /* --- Header (Identical on both pages) --- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .header-content {
+            flex-grow: 1;
+        }
+
+        .vip-badge {
+            display: inline-block;
+            background-color: var(--color-vip);
+            color: var(--color-white);
+            font-size: 0.75rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 3px 8px;
+            border-radius: 2px;
+            margin-bottom: 4px;
+        }
+
+        .header-content h1 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--color-primary);
+            margin: 0;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+
+        .price-duration-row {
+            display: flex;
+            align-items: baseline;
+            margin-top: 5px;
+        }
+
+        .price-duration-row .price {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--color-highlight);
+        }
+
+        .price-duration-row .duration {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #777;
+            margin-left: 15px;
+        }
+
+        .header .logo {
+            max-width: 140px;
+            height: auto;
+            margin-left: 20px;
+        }
+
+        /* --- Page 1 Specifics --- */
+
+        /* Large Hero Gallery */
+        .hero-gallery {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-template-rows: 120px 120px;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .hero-gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 3px;
+        }
+
+        .hero-gallery .main-img {
+            grid-row: span 2;
+            /* Takes up full height on left */
+        }
+
+        .content-block h2 {
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: var(--color-primary);
+            border-bottom: 2px solid var(--color-vip);
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+            margin-top: 20px;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+
+        .content-block p {
+            font-size: 0.9rem;
+            text-align: justify;
+            margin-bottom: 5px;
+        }
+
+        .highlight-box {
+            background-color: var(--color-light-bg);
+            border-left: 4px solid var(--color-vip);
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .highlight-box h3 {
+            margin: 0 0 10px 0;
+            color: var(--color-primary);
+            font-size: 1rem;
+        }
+
+        .booking-summary {
+            display: flex;
+            justify-content: space-between;
+            background-color: var(--color-primary);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .booking-summary div {
+            text-align: center;
+        }
+
+        .booking-summary span {
+            display: block;
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .booking-summary strong {
+            font-size: 1rem;
+            font-weight: 900;
+        }
+
+
+        /* --- Page 2 Specifics --- */
+
+        /* 2-Column Layout for Page 2 */
+        .page-2-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            row-gap: 5px;
+            column-gap: 20px;
+        }
+
+        .inclusions-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .inclusions-list li {
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .inclusions-list li::before {
+            content: '✓';
+            color: var(--color-vip);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .itinerary-section {
+            grid-column: span 2;
+            /* Spans full width */
+            margin-top: 10px;
+        }
+
+        /* 3-Column Itinerary Table to save vertical space */
+        .itinerary-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            font-size: 0.75rem;
+        }
+
+        .itinerary-col h4 {
+            background-color: var(--color-secondary);
+            padding: 5px;
+            margin: 0 0 5px 0;
+            font-size: 0.8rem;
+            text-align: center;
+            border-radius: 3px;
+        }
+
+        .itinerary-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .itinerary-table td {
+            border-bottom: 1px solid #eee;
+            padding: 3px 0;
+            vertical-align: top;
+        }
+
+        .itinerary-table .day {
+            font-weight: 700;
+            color: var(--color-primary);
+            width: 25px;
+        }
+
+        .itinerary-table .port {
+            font-weight: 600;
+        }
+
+        .highlight-row {
+            color: var(--color-highlight);
+        }
+
+        .important-box {
+            background-color: #fff3cd;
+            /* Soft yellow warning bg */
+            border: 1px solid #ffeeba;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-top: 20px;
+            color: #856404;
+        }
+
+        /* --- Footer --- */
+        .footer {
+            margin-top: auto;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+            text-align: center;
+        }
+
+        .book-button {
+            display: inline-block;
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            font-weight: 900;
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            padding: 10px 30px;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- Print Styles --- */
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+                gap: 0;
+            }
+
+            .brochure-page {
+                box-shadow: none;
+                margin: 0;
+                page-break-after: always;
+            }
+
+            .brochure-page:last-child {
+                page-break-after: avoid;
+            }
+
+            /* Force Background Colors Print */
+            .vip-badge,
+            .booking-summary,
+            .itinerary-col h4,
+            .important-box,
+            .highlight-box,
+            .book-button {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="brochure-page">
+
+        <header class="header">
+            <div class="header-content">
+                <span class="vip-badge">VIP Cruise Experience</span>
+                <h1>Jewels of the Caribbean Sea</h1>
+                <div class="price-duration-row">
+                    <span class="price">From Only £2,999!</span>
+                    <span class="duration">42 Days</span>
+                </div>
+            </div>
+            <img src="https://lochlomondtravel.com/images/general/logo.png" alt="Loch Lomond Travel Logo" class="logo">
+        </header>
+
+        <div class="hero-gallery">
+            <img src="https://lochlomondtravel.com/images/havana__2_.jpg" alt="Havana Street Scene" class="main-img">
+            <img src="https://lochlomondtravel.com/images/st-lucia-pitons-770.jpg" alt="St Lucia">
+            <img src="https://lochlomondtravel.com/images/ambition_-_cabin.jpg" alt="Ambience Cabin">
+        </div>
+
+        <div class="content-block">
+            <h2>Life Onboard Ambience</h2>
+            <p>
+                For 40 nights, <strong>Ambience</strong> will be your home from home. With space for 1,400 guests, she
+                offers a warm, welcoming atmosphere. Dining options include five restaurants, such as the main
+                Buckingham Restaurant and the more casual Borough Market buffet, plus speciality venues like Saffron and
+                Chef’s Table.
+            </p>
+            <p>
+                When it comes to entertainment, you'll be spoilt for choice. Enjoy West End-style shows in The
+                Palladium, live music in The Observatory, or a film in the cinema. There’s a swimming pool and two hot
+                tubs on deck, plus a gym, wellness centre and salon. Whether you're looking to unwind, stay active, or
+                get involved in a craft workshop, life at sea offers something for everyone.
+            </p>
+
+            <h2>Caribbean Highlights</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <img src="https://lochlomondtravel.com/images/cuba.jpg"
+                        style="width:100%; height:100px; object-fit:cover; border-radius:3px; margin-bottom:5px;">
+                    <p><strong>Havana, Cuba:</strong> Iconic, colourful, and full of character. Classic 1950s cars
+                        cruise past colonial mansions while live music spills onto cobbled streets. Explore Old Havana
+                        (UNESCO) or sip a mojito in Hemingway’s favourite bar.</p>
+                </div>
+                <div>
+                    <img src="https://lochlomondtravel.com/images/ocho_rios.jpg"
+                        style="width:100%; height:100px; object-fit:cover; border-radius:3px; margin-bottom:5px;">
+                    <p><strong>Ocho Rios, Jamaica:</strong> Laid-back and vibrant. Climb the famous Dunn’s River Falls
+                        or enjoy the reggae beats and jerk chicken stalls. It offers a fun, tropical slice of Jamaica
+                        that’s hard not to fall in love with.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="booking-summary">
+            <div>
+                <span>Departure Date</span>
+                <strong>Thu 29 Jan, 2026</strong>
+            </div>
+            <div>
+                <span>Duration</span>
+                <strong>42 Days</strong>
+            </div>
+            <div>
+                <span>Price From</span>
+                <strong>£2,999pp</strong>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <div class="brochure-page">
+
+        <header class="header">
+            <div class="header-content">
+                <span class="vip-badge">Itinerary & Details</span>
+                <h1>Jewels of the Caribbean Sea</h1>
+            </div>
+            <img src="https://lochlomondtravel.com/images/general/logo.png" alt="Loch Lomond Travel Logo" class="logo">
+        </header>
+
+        <div class="page-2-layout">
+
+            <div class="inclusions-list">
+                <h2>What's Included?</h2>
+                <ul>
+                    <li>Luxury return coach travel to London Tilbury</li>
+                    <li>1 Night Pre-Cruise Hotel (Dinner, Bed & Breakfast)</li>
+                    <li><strong>40 Nights Sailing onboard Ambience</strong></li>
+                    <li>Full Board: Breakfast, Lunch, Afternoon Tea & Dinner</li>
+                    <li><strong>12 Ports of Call</strong> including Cuba, St Lucia & Cayman Islands</li>
+                    <li>Captain’s Gala Dinner & Cocktail Party</li>
+                    <li>West End-style evening entertainment & live shows</li>
+                    <li>Guest speakers & daytime activities programme</li>
+                    <li>Use of gym, swimming pools, hot tubs and spa access</li>
+                    <li><strong>Drinks & Gratuities Package Available: £1625pp</strong></li>
+                </ul>
+            </div>
+
+            <div>
+                <h2>Pickup Points</h2>
+                <p style="font-size: 0.8rem; margin-bottom: 15px;">
+                    Bathgate, Carlisle, Dundee, Edinburgh (Hermiston Gait), Glasgow, Gretna Gateway Outlet, Halbeath
+                    Park & Ride, Hamilton, Perth.
+                </p>
+
+                <h2>Important Information</h2>
+                <div class="important-box">
+                    <strong>• Adult Only Cruise (18+)</strong><br>
+                    <strong>• Passport Rules:</strong> Must be valid for 3 months after return date & less than 10 years
+                    old on day of return.<br>
+                    <strong>• Dress Code:</strong> Formal attire recommended for Gala evenings.<br>
+                    • Cruise bookings are non-transferable & non-refundable.
+                </div>
+            </div>
+
+            <div class="itinerary-section">
+                <h2>42 Day Itinerary</h2>
+                <div class="itinerary-wrapper">
+
+                    <div class="itinerary-col">
+                        <h4>The Outbound Journey</h4>
+                        <table class="itinerary-table">
+                            <tr>
+                                <td class="day">1</td>
+                                <td>Pre-Cruise Hotel Stay</td>
+                            </tr>
+                            <tr>
+                                <td class="day">2</td>
+                                <td>Board Ship (Tilbury)</td>
+                            </tr>
+                            <tr>
+                                <td class="day">3-6</td>
+                                <td>At Sea</td>
+                            </tr>
+                            <tr>
+                                <td class="day">7</td>
+                                <td class="highlight-row">Praia da Vitória, Azores</td>
+                            </tr>
+                            <tr>
+                                <td class="day">8-13</td>
+                                <td>At Sea (Transatlantic)</td>
+                            </tr>
+                            <tr>
+                                <td class="day">14</td>
+                                <td class="highlight-row">St John's, Antigua</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="itinerary-col">
+                        <h4>Caribbean Discovery</h4>
+                        <table class="itinerary-table">
+                            <tr>
+                                <td class="day">15</td>
+                                <td class="highlight-row">Road Town, Tortola</td>
+                            </tr>
+                            <tr>
+                                <td class="day">16-18</td>
+                                <td>At Sea</td>
+                            </tr>
+                            <tr>
+                                <td class="day">19</td>
+                                <td class="highlight-row">Havana, Cuba</td>
+                            </tr>
+                            <tr>
+                                <td class="day">20</td>
+                                <td>At Sea</td>
+                            </tr>
+                            <tr>
+                                <td class="day">21</td>
+                                <td class="highlight-row">George Town, Cayman</td>
+                            </tr>
+                            <tr>
+                                <td class="day">22</td>
+                                <td class="highlight-row">Montego Bay, Jamaica</td>
+                            </tr>
+                            <tr>
+                                <td class="day">23</td>
+                                <td class="highlight-row">Ocho Rios, Jamaica</td>
+                            </tr>
+                            <tr>
+                                <td class="day">24</td>
+                                <td>At Sea</td>
+                            </tr>
+                            <tr>
+                                <td class="day">25</td>
+                                <td class="highlight-row">Santo Domingo, Dom Rep</td>
+                            </tr>
+                            <tr>
+                                <td class="day">26</td>
+                                <td>At Sea</td>
+                            </tr>
+                            <tr>
+                                <td class="day">27</td>
+                                <td class="highlight-row">Fort-de-France, Martinique</td>
+                            </tr>
+                            <tr>
+                                <td class="day">28</td>
+                                <td class="highlight-row">Bridgetown, Barbados</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="itinerary-col">
+                        <h4>Islands & Return</h4>
+                        <table class="itinerary-table">
+                            <tr>
+                                <td class="day">29</td>
+                                <td class="highlight-row">Castries, St Lucia</td>
+                            </tr>
+                            <tr>
+                                <td class="day">30</td>
+                                <td class="highlight-row">Kingstown, St Vincent</td>
+                            </tr>
+                            <tr>
+                                <td class="day">31</td>
+                                <td class="highlight-row">Basseterre, St Kitts</td>
+                            </tr>
+                            <tr>
+                                <td class="day">32-41</td>
+                                <td>At Sea (Transatlantic)</td>
+                            </tr>
+                            <tr>
+                                <td class="day">42</td>
+                                <td>Arrive Tilbury & Return</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <footer class="footer">
+            <a href="https://lochlomondtravel.com/itineraries/10185-jewels-of-the-caribbean-sea" class="book-button"
+                target="_blank">
+                Book Your VIP Cruise Online
+            </a>
+        </footer>
+
+    </div>
+
+</body>
+
+</html>

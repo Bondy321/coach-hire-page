@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loch Lomond Travel - Summertime Fjordland</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <style>
+        :root {
+            --font-main: 'Raleway', sans-serif;
+            --color-primary: #004D73;
+            --color-secondary: #AECAEC;
+            --color-highlight: #FF7754;
+            --color-green: #2ecc71;
+            --color-text: #333;
+            --color-white: #FFFFFF;
+            --color-bg: #f4f8fb;
+        }
+
+        * , *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--color-text);
+            line-height: 1.35;
+            background: #555;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        /* A4 Page */
+        .brochure-page {
+            width: 210mm;
+            height: 297mm;
+            background: var(--color-white);
+            padding: 12mm 15mm;
+            position: relative;
+            display: grid;
+            grid-template-rows: auto auto 1fr auto;
+            gap: 0;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            page-break-after: always;
+        }
+
+        /* Badges */
+        .badge-container {
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            z-index: 10;
+        }
+
+        .duration-badge {
+            background: var(--color-highlight);
+            color: var(--color-white);
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 8px 15px;
+            border-bottom-left-radius: 8px;
+            box-shadow: -2px 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 2px solid var(--color-primary);
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+            margin-top: 15px;
+            padding-right: 120px;
+        }
+
+        .header-text h1 {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .header-price {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--color-highlight);
+        }
+
+        .logo {
+            position: absolute;
+            top: 45px;
+            right: 15mm;
+            width: 110px;
+            height: auto;
+        }
+
+        /* Split Hero Images (Page 1) */
+        .hero-image-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+            align-items: start;
+            height: 200px;
+        }
+
+        .hero-image-split img {
+            display: block;
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 6px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+
+        /* Multi-Image Grid (Page 2) */
+        .multi-image-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .multi-image-grid img {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        /* Main Columns */
+        .main-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            min-height: 0;
+            overflow: hidden;
+            align-items: start;
+        }
+
+        /* Headings */
+        h3 {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--color-secondary);
+            margin-bottom: 10px;
+            padding-bottom: 4px;
+            display: inline-block;
+        }
+
+        /* Cruise Features Box */
+        .feature-box {
+            background: var(--color-bg);
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--color-primary);
+        }
+
+        .feature-title {
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: var(--color-primary);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .feature-text {
+            font-size: 0.8rem;
+            color: #444;
+            line-height: 1.4;
+        }
+
+        /* Logistics & Inclusions */
+        .included-list {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+
+        .included-list li {
+            position: relative;
+            padding-left: 18px;
+            font-size: 0.8rem;
+            margin-bottom: 6px;
+            line-height: 1.3;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .included-list li::before {
+            content: "✓";
+            color: var(--color-green);
+            font-weight: 800;
+            position: absolute;
+            left: 0;
+        }
+
+        .pickup-text {
+            font-size: 0.75rem;
+            color: #555;
+            line-height: 1.3;
+            background: #f9f9f9;
+            padding: 6px;
+            border-radius: 4px;
+            border: 1px solid #eee;
+        }
+
+        /* Alerts & Info */
+        .info-box {
+            border: 1px solid #34495e;
+            background: #ecf0f1;
+            color: #2c3e50;
+            padding: 8px;
+            font-size: 0.75rem;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .info-box strong {
+            display: block;
+            margin-bottom: 2px;
+            color: var(--color-primary);
+        }
+
+        /* Pricing Table */
+        .deposit-highlight {
+            font-size: 0.9rem;
+            color: var(--color-primary);
+            font-weight: 800;
+            margin-top: 5px;
+            display: block;
+            border-top: 1px dashed #ccc;
+            padding-top: 8px;
+        }
+
+        .date-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            margin-top: 8px;
+        }
+
+        .date-table td {
+            padding: 6px 4px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .date-table tr:last-child td {
+            border: none;
+        }
+
+        .dt-date {
+            font-weight: 700;
+            color: #333;
+        }
+
+        .dt-price {
+            text-align: right;
+            color: var(--color-highlight);
+            font-weight: 800;
+            font-size: 0.95rem;
+        }
+
+        /* Itinerary Timeline (Page 2) */
+        .itinerary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px 25px;
+        }
+
+        .itinerary-day {
+            margin-bottom: 5px;
+        }
+
+        .day-title {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--color-primary);
+            display: block;
+            margin-bottom: 2px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 2px;
+        }
+
+        .day-desc {
+            font-size: 0.75rem;
+            color: #444;
+            line-height: 1.4;
+        }
+
+        /* Footer */
+        .footer-cta {
+            padding-top: 12px;
+            text-align: center;
+            border-top: 1px solid #eee;
+            margin-top: auto;
+        }
+
+        .btn-book {
+            display: inline-block;
+            background: var(--color-primary);
+            color: var(--color-white);
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 10px 40px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Print rules */
+        @page { size: A4; margin: 0; }
+        @media print {
+            html, body { margin: 0 !important; padding: 0 !important; background: none !important; }
+            body { display: block !important; }
+            .brochure-page {
+                width: 210mm; height: 297mm;
+                box-shadow: none !important;
+                -webkit-print-color-adjust: exact; print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="brochure-page">
+        <div class="badge-container">
+            <div class="duration-badge">11 Days, 10 Nights</div>
+        </div>
+
+        <header class="page-header">
+            <div class="header-text">
+                <h1>Summertime Fjordland</h1>
+                <span class="header-price">From Only £1,479pp</span>
+            </div>
+            <img src="https://lochlomondtravel.com/images/general/logo.png" alt="Loch Lomond Travel Logo" class="logo" />
+        </header>
+
+        <div class="hero-image-split">
+            <img src="https://lochlomondtravel.com/images/638894496_1222196520020961_6676451289821412471_n.jpg" alt="Ambassador Cruise Line Ship in the Fjords"/>
+            <img src="https://lochlomondtravel.com/images/lysefjord__sfe__gem_gen_.jpg" alt="lysefjord" />
+        </div>
+        <div class="main-columns">
+            <div class="col-left">
+                <div class="feature-box">
+                    <span class="feature-title">At Sea Onboard Ambition</span>
+                    <p class="feature-text">
+                        Life onboard Ambition is all about comfort. Relax in the spa, unwind in the swimming pools, or find a quiet corner in the library or craft studio. Enjoy full board dining in elegant restaurants or casual cafés, and end your day with spectacular live theatre shows.
+                    </p>
+                </div>
+
+                <h3>Cruise Highlights</h3>
+                
+                <div class="feature-box" style="background: transparent; padding: 0; border: none; margin-bottom: 12px;">
+                    <span class="feature-title" style="color: var(--color-text);">Scenic Fjord Cruising</span>
+                    <p class="feature-text">
+                        The scenery is part of the journey. Glide through the dramatic Lysefjord with views of Pulpit Rock, and experience Norway's most celebrated landscapes including Hardangerfjord, Sognefjord, Aurlandsfjord, and the wide waters of Boknafjord.
+                    </p>
+                </div>
+
+                <div class="feature-box" style="background: transparent; padding: 0; border: none; margin-bottom: 12px;">
+                    <span class="feature-title" style="color: var(--color-text);">Spectacular Ports of Call</span>
+                    <p class="feature-text">
+                        Explore the Viking history of Haugesund, the charming waterfront of Eidfjord, the towering mountains surrounding Flåm, the deep history of Austefjorden near Bergen, and the friendly coastal town of Sandnes.
+                    </p>
+                </div>
+
+                <div class="feature-box" style="background: transparent; padding: 0; border: none; margin-bottom: 12px;">
+                    <span class="feature-title" style="color: var(--color-text);">Exceptional Entertainment</span>
+                    <p class="feature-text">
+                        Your sea days are packed with informative guest speakers, a lively daytime activities programme, and memorable evenings featuring a Captain’s Cocktail Party and Gala Dinner.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-right">
+                <h3>What's Included?</h3>
+                <ul class="included-list">
+                    <li>Luxury return coach travel to Dundee</li>
+                    <li>10 Nights sailing onboard the <em>Ambition</em> (Departing Dundee)</li>
+                    <li>Full Board (Breakfast, Lunch, Afternoon Tea & Dinner)</li>
+                    <li>Visits to Haugesund, Eidfjord, Flåm, Austefjorden & Sandnes</li>
+                    <li>Scenic cruising through Norway's most famous Fjords</li>
+                    <li>Captain’s Gala Dinner & Cocktail Party</li>
+                    <li>Informative guest speakers & evening entertainment</li>
+                    <li>Use of gym, swimming pools, hot tubs and spa access</li>
+                </ul>
+
+                <div class="info-box" style="border-color: var(--color-primary); background: #e8f4f8;">
+                    <strong>Optional Premium Drinks Upgrade</strong>
+                    The <em>Ambassador Expedition Package (Premium)</em> drinks package is available to pre-book for £400 per person for the entire cruise. (Note: If no package is taken, gratuities of approx. £7pppn are payable onboard).
+                </div>
+
+                <h3>Pickup Points</h3>
+                <p class="pickup-text">Ayr, Bathgate, Dundee, Edinburgh, Glasgow, Halbeath, Hamilton, Irvine, Kilmarnock.</p>
+
+                <div style="margin-top: 15px;">
+                    <span class="deposit-highlight">Lock in your space for just £100 deposit!</span>
+                    <table class="date-table">
+                        <tr>
+                            <td class="dt-date">Sat 17th Jul 2027</td>
+                            <td class="dt-price">£1,479pp</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer-cta">
+            <a href="https://lochlomondtravel.com/itineraries/10433-summertime-fjordland" class="btn-book" target="_blank" rel="noopener">
+                Book Online Now
+            </a>
+        </footer>
+    </div>
+
+
+    <div class="brochure-page">
+        <header class="page-header" style="margin-top: 0; padding-top: 10px;">
+            <div class="header-text">
+                <h1>Your 11-Day Itinerary</h1>
+            </div>
+        </header>
+
+        <div class="multi-image-grid">
+            <img src="https://lochlomondtravel.com/images/638779429_1222196346687645_6190702395311991571_n.jpg" alt="Eidfjord" />
+            <img src="https://lochlomondtravel.com/images/bergen__1_.jpg" alt="Bergen" />
+            <img src="https://lochlomondtravel.com/images/flam_railway.jpg" alt="Flam Railway" />
+            <img src="https://lochlomondtravel.com/images/haugesund__1_.jpg" alt="Haugesund" />
+        </div>
+
+        <div class="itinerary-grid">
+            <div class="itinerary-col">
+                <div class="itinerary-day">
+                    <span class="day-title">Day 1: Embark in Dundee</span>
+                    <p class="day-desc">Travel to Dundee by luxury coach and board the impressive <em>Ambition</em>. Settle into your cabin as we begin our spectacular journey north to the fjords.</p>
+                </div>
+                <div class="itinerary-day">
+                    <span class="day-title">Day 2: At Sea</span>
+                    <p class="day-desc">Settle into ship life. Take time to explore the lounges, enjoy the daytime activities programme, and relax into the rhythm of life at sea.</p>
+                </div>
+                <div class="itinerary-day">
+                    <span class="day-title">Day 3: Scenic Cruising of Lysefjord</span>
+                    <p class="day-desc">Awe-inspiring scenery that must be seen to be believed. Glide past towering cliffs and look out for the famous plateau of Pulpit Rock rising 2,000 feet above the water.</p>
+                </div>
+                <div class="itinerary-day">
+                    <span class="day-title">Day 4: Haugesund</span>
+                    <p class="day-desc">Explore coastal character and Viking history. Visit the Haraldshaugen monument, stroll the harbour, or head out to view the magnificent Langfoss waterfall.</p>
+                </div>
+                <div class="itinerary-day">
+                    <span class="day-title">Day 5: Eidfjord</span>
+                    <p class="day-desc">Sail through stunning landscapes of cascading waterfalls and steep cliffs before docking in charming Eidfjord, a peaceful village surrounded by dramatic mountains.</p>
+                </div>
+                <div class="itinerary-day">
+                    <span class="day-title">Day 6: At Sea</span>
+                    <p class="day-desc">A perfect day to unwind. Relax in the Green Sea Spa, take a dip in the pool, or find a quiet spot to read before an evening of excellent dining and entertainment.</p>
+                </div>
+            </div>
+
+            <div class="itinerary-col">
+                <div class="itinerary-day">
+                    <span class="day-title">Day 7: Flåm, Sognefjord & Aurlandsfjord</span>
+                    <p class="day-desc">Cruise through postcard-perfect scenery to Flåm. Take the famous Flåm Railway, visit the Stegastein viewpoint, or simply enjoy a coffee by the still water.</p>
+                </div>
+                <div class="itinerary-day">
+                    <span class="day-title">Day 8: Austefjorden (for Bergen)</span>
+                    <p class="day-desc">Blending nature, history, and authentic Norwegian life. Visit the WWII sites at Telavåg, stroll through Glesvær, or learn about local fishing traditions.</p>
+                </div>
+                <div class="itinerary-day">
+                    <span class="day-title">Day 9: Sandnes & Cruise Boknafjord</span>
+                    <p class="day-desc">Enjoy an easy wander through friendly Sandnes or hike Dalsnuten for cracking views. Later, spend time on deck scenic cruising through the wide, island-dotted Boknafjord.</p>
+                </div>
+                <div class="itinerary-day">
+                    <span class="day-title">Day 10: At Sea</span>
+                    <p class="day-desc">Your final full day to soak up the ship's atmosphere. Enjoy a long lunch, browse the shops, and save some energy for a lively final night of entertainment.</p>
+                </div>
+                <div class="itinerary-day">
+                    <span class="day-title">Day 11: Disembark in Dundee</span>
+                    <p class="day-desc">After breakfast, arrive back into Dundee to disembark. Rejoin your coach for the journey home, taking with you unforgettable memories of Norway.</p>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer-cta">
+            <p style="font-size: 0.85rem; color: #555; margin-bottom: 8px;"><strong>To book your cabin or for more information, please visit our website.</strong></p>
+            <a href="https://lochlomondtravel.com/itineraries/10433-summertime-fjordland" class="btn-book" target="_blank" rel="noopener">
+                View Full Cruise Details
+            </a>
+        </footer>
+    </div>
+
+</body>
+</html>

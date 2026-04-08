@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loch Lomond Travel - Leeds Castle</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Base & Font Styles --- */
+        :root {
+            --font-body: 'Raleway', sans-serif;
+            --color-primary: #007DC3;
+            --color-secondary: #AECAEC;
+            --color-highlight: #FF7754;
+            --color-vip: #D4AF37;
+            /* Gold */
+            --color-text: #333;
+            --color-light-bg: #f8f9fa;
+            --color-white: #FFFFFF;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            font-weight: 400;
+            color: var(--color-text);
+            line-height: 1.45;
+            background-color: #e9e9e9;
+            display: flex;
+            justify-content: center;
+            padding: 2rem 0;
+        }
+
+        /* --- Page Container --- */
+        .brochure-page {
+            width: 210mm;
+            min-height: 297mm;
+            background-color: var(--color-white);
+            padding: 15mm;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Header --- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .header-content {
+            flex-grow: 0.25;
+        }
+
+        .vip-badge {
+            display: inline-block;
+            background-color: var(--color-vip);
+            color: var(--color-white);
+            font-size: 0.75rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 3px 8px;
+            border-radius: 2px;
+            margin-bottom: 4px;
+        }
+
+        .header-content h1 {
+            font-size: 1.9rem;
+            font-weight: 900;
+            color: var(--color-primary);
+            margin: 0;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+
+        .price-duration-row {
+            display: flex;
+            align-items: baseline;
+            margin-top: 4px;
+        }
+
+        .price-duration-row .price {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--color-highlight);
+        }
+
+        .price-duration-row .duration {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #777;
+            margin-left: 15px;
+        }
+
+        .header .logo {
+            max-width: 135px;
+            height: auto;
+            margin-left: 20px;
+        }
+
+        /* --- 3-Image Gallery Grid --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+
+        .gallery-grid img {
+            width: 100%;
+            height: 115px;
+            object-fit: cover;
+            border-radius: 2px;
+        }
+
+        /* --- Main Layout (Sidebar Left, Content Right) --- */
+        .main-content {
+            display: grid;
+            grid-template-columns: 0.45fr 1fr;
+            gap: 25px;
+            align-items: start;
+            flex-grow: 1;
+        }
+
+        /* --- Sidebar Styles --- */
+        .sidebar {
+            background-color: var(--color-light-bg);
+            padding: 15px;
+            border-radius: 4px;
+            border: 1px solid #eee;
+            font-size: 0.8rem;
+            line-height: 1.5;
+        }
+
+        .sidebar h2 {
+            font-size: 0.95rem;
+            font-weight: 900;
+            color: var(--color-primary);
+            border-bottom: 2px solid var(--color-vip);
+            padding-bottom: 3px;
+            margin-bottom: 10px;
+            margin-top: 20px;
+            text-transform: uppercase;
+        }
+
+        .sidebar h2:first-child {
+            margin-top: 0;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 6px;
+            position: relative;
+            padding-left: 12px;
+        }
+
+        .sidebar li::before {
+            content: '▪';
+            color: var(--color-vip);
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 1.2em;
+            line-height: 1.1;
+        }
+        
+        /* 2-Column Pickup List */
+        .sidebar .pickup-list-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 10px;
+        }
+
+        .date-list p {
+            margin: 0 0 4px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .date-list strong {
+            color: var(--color-highlight);
+        }
+        
+        .important-note {
+            font-size: 0.7rem;
+            font-style: italic;
+            margin-top: 15px;
+            color: #555;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+
+        /* --- Detailed Content Styles --- */
+        .details-column h2 {
+            font-size: 1rem;
+            font-weight: 900;
+            color: var(--color-primary);
+            margin-bottom: 6px;
+            margin-top: 18px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 2px;
+        }
+
+        .details-column h2:first-child {
+            margin-top: 0;
+        }
+
+        .description-text {
+            font-size: 0.9rem;
+            color: #333;
+            margin-bottom: 8px;
+            text-align: justify;
+            line-height: 1.5;
+        }
+
+        /* --- Footer --- */
+        .footer {
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+            text-align: center;
+        }
+
+        .book-button {
+            display: inline-block;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 900;
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            padding: 10px 30px;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .book-button:hover {
+            background-color: #005a8f;
+        }
+
+        /* --- Print Styles --- */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 15mm;
+            }
+
+            body {
+                background-color: var(--color-white);
+                padding: 0;
+            }
+
+            .brochure-page {
+                width: 100%;
+                box-shadow: none;
+                padding: 0;
+                border: none;
+            }
+
+            .sidebar {
+                background-color: #f8f9fa !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .vip-badge {
+                background-color: #D4AF37 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .book-button {
+                background-color: var(--color-primary) !important;
+                color: var(--color-white) !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .sidebar h2 {
+                border-bottom: 2px solid #D4AF37 !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="brochure-page">
+
+        <header class="header">
+            <div class="header-content">
+                <span class="vip-badge">VIP Experience</span>
+                <h1>Regal Retreat at Leeds Castle</h1>
+                <div class="price-duration-row">
+                    <span class="price">From Only £579!</span>
+                    <span class="duration">3 Days</span>
+                </div>
+            </div>
+            <img src="https://lochlomondtravel.com/images/general/logo.png" alt="Loch Lomond Travel Logo" class="logo">
+        </header>
+
+        <div class="gallery-grid">
+            <img src="https://lochlomondtravel.com/images/leeds_castle__1_.jpg" alt="Leeds Castle Moat">
+            <img src="https://lochlomondtravel.com/images/penhurst_place.jpg" alt="Penshurst Place">
+            <img src="https://lochlomondtravel.com/images/leeds_castle_hotel.jpg" alt="Stable Courtyard Bedroom">
+        </div>
+
+        <main class="main-content">
+
+            <aside class="sidebar">
+                <h2>What's Included?</h2>
+                <ul>
+                    <li>Luxury return coach travel</li>
+                    <li>2 Nights Dinner, Bed & Breakfast at <strong>Leeds Castle Stable Courtyard</strong></li>
+                    <li>Exclusive <strong>Evening Access</strong> to castle grounds</li>
+                    <li><strong>Private Guided Tour</strong> of Leeds Castle & Gardens</li>
+                    <li>Guided tour of <strong>Penshurst Place & Gardens</strong></li>
+                    <li>Luggage Porterage</li>
+                    <li><strong>Deposit: £150 per person</strong></li>
+                </ul>
+
+                <h2>Departure Date</h2>
+                <div class="date-list">
+                    <p>Tue 15 Sep, 2026 <strong>£579pp</strong></p>
+                </div>
+
+                <h2>Pickup Points</h2>
+                <ul class="pickup-list-2col">
+                    <li>Bathgate</li>
+                    <li>Carlisle</li>
+                    <li>Dundee</li>
+                    <li>Glasgow</li>
+                    <li>Gretna</li>
+                    <li>Halbeath</li>
+                    <li>Hamilton</li>
+                </ul>
+                
+                <div class="important-note">
+                    <strong>Please note:</strong> There is no lift access within the Leeds Castle Stable Courtyard.
+                </div>
+            </aside>
+
+            <div class="details-column">
+
+                <h2>Leeds Castle - Private Tour</h2>
+                <p class="description-text">
+                    Visitors never forget their first breathtaking vision of Leeds Castle, rising majestically from its moat and heralded as the “loveliest castle in the world”. You will traverse secret passageways, step into the 1930s boudoirs of Lady Baillie, and immerse yourself in the grandeur of this “Castle of Queens” on a private guided tour. 
+                </p>
+                <p class="description-text">    
+                    Before the castle opens to the public, you’ll delve into the 500-acre gardens, meandering through vibrant blooms and tackling the famous yew maze with its underground grotto.
+                </p>
+
+                <h2>Leeds Castle Stable Courtyard</h2>
+                <p class="description-text">
+                    The Stable Courtyard at Leeds Castle offers charming, individually designed en-suite bedrooms set within the peaceful castle grounds. These sought-after rooms are beautifully furnished to a high standard with luxury toiletries.
+                </p>
+                <p class="description-text">    
+                    A unique highlight is the exclusive evening access to the historic gardens after day visitors have left. You will enjoy dinner and a full English breakfast in the 17th-century Castle View Restaurant, boasting stunning views of the castle illuminated at night.
+                </p>
+
+                <h2>Penshurst Place & Gardens</h2>
+                <p class="description-text">
+                    Weave your way around the opulent state halls of Penshurst Place, a medieval masterpiece with walls adorned with treasures. This was once the hunting ground of Henry VIII and the birthplace of Elizabethan poet Sir Philip Sidney. Don't miss the breathtaking Baron's Hall, highlighted as one of the world’s grandest rooms.
+                </p>
+
+            </div>
+
+        </main>
+
+        <footer class="footer">
+            <a href="https://lochlomondtravel.com/itineraries/10239-regal-retreat-at-leeds-castle"
+                class="book-button" target="_blank">
+                Book Your VIP Experience Online
+            </a>
+        </footer>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loch Lomond Travel - St Annes 1940's 2026</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Base & Font Styles --- */
+        :root {
+            --font-body: 'Raleway', sans-serif;
+            --color-primary: #007DC3;     /* Brand Blue */
+            --color-secondary: #e1eff9;   /* Very Light Blue Background */
+            --color-accent: #FF7754;      /* Brand Orange */
+            --color-text: #333;
+            --color-white: #FFFFFF;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            font-weight: 400; 
+            color: var(--color-text);
+            line-height: 1.4; 
+            background-color: #e9e9e9;
+            display: flex;
+            justify-content: center;
+            padding: 2rem 0;
+        }
+
+        /* --- Page Container --- */
+        .brochure-page {
+            width: 210mm;
+            height: 297mm; 
+            background-color: var(--color-white);
+            padding: 15mm; 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; 
+        }
+
+        /* --- Header Section --- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--color-primary);
+            margin-bottom: 15px;
+            flex-shrink: 0;
+        }
+
+        .header-content .category-tag {
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .header-content h1 {
+            font-size: 1.9rem;
+            font-weight: 900; 
+            color: var(--color-primary);
+            margin: 0;
+            line-height: 1;
+        }
+
+        .header-content .subtitle-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 5px;
+        }
+
+        .header-content .subtitle {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #555;
+        }
+
+        .header-content .duration-badge {
+            background-color: var(--color-primary);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        
+        .header .logo {
+            max-width: 130px; 
+            height: auto;
+            margin-left: 20px;
+            margin-bottom: 5px;
+        }
+
+        /* --- Hero Images --- */
+        .hero-images {
+            display: flex;
+            gap: 5px; 
+            margin-bottom: 20px;
+            flex-shrink: 0;
+        }
+
+        .hero-images img {
+            width: calc(33.33% - 3.33px); 
+            height: 100px; 
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        
+        .hero-images img:first-child { 
+            width: calc(40% - 3.33px); 
+        }
+        .hero-images img:nth-child(2), .hero-images img:nth-child(3) {
+            width: calc(30% - 3.33px); 
+        }
+
+        /* --- Main Layout --- */
+        .main-content {
+            display: grid;
+            grid-template-columns: 0.38fr 1fr; 
+            gap: 25px;
+            align-items: start;
+            flex-grow: 1;
+            margin-top: 0; 
+        }
+
+        /* --- Sidebar (Updated for bigger text) --- */
+        .sidebar {
+            background-color: var(--color-secondary);
+            padding: 15px; /* Increased padding */
+            border-radius: 6px;
+            font-size: 1rem; /* Increased font size */
+        }
+
+        .sidebar h3 {
+            font-size: 1.1rem; /* Increased header size */
+            font-weight: 800;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            margin-top: 20px;
+            border-bottom: 1px solid #cadbe9;
+            padding-bottom: 4px;
+        }
+        
+        .sidebar h3:first-of-type {
+            margin-top: 0;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 8px; /* Increased spacing between items */
+            padding-left: 12px;
+            position: relative;
+            line-height: 1.25;
+        }
+
+        .sidebar li::before {
+            content: '•';
+            color: var(--color-accent);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Date Table (Updated for bigger text) */
+        .sidebar-dates-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem; /* Increased font size */
+            margin-top: 5px;
+        }
+        .sidebar-dates-table td {
+            padding: 6px 0; /* Increased padding */
+            border-bottom: 1px solid #dcebf7;
+            vertical-align: top;
+        }
+        .sidebar-dates-table tr:last-child td {
+            border-bottom: none;
+        }
+        .sidebar-dates-table .price-col {
+            text-align: right;
+            font-weight: 800;
+            color: var(--color-accent);
+        }
+        .ticket-type {
+            display: block;
+            font-weight: 700;
+            color: #555;
+            font-size: 0.85rem; /* Increased font size */
+        }
+
+        /* --- Content Column --- */
+        .content-col h2 {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--color-primary);
+            margin-bottom: 6px;
+            border-left: 4px solid var(--color-accent);
+            padding-left: 10px;
+            line-height: 1.2;
+            margin-top: 0;
+        }
+        
+        .content-col h2:not(:first-child) {
+            margin-top: 18px;
+        }
+
+        .content-col p {
+            margin-bottom: 0;
+            text-align: justify;
+            font-size: 1rem;
+            line-height: 1.45;
+        }
+
+        .hotel-box {
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .hotel-box h3 {
+            font-size: 1.05rem;
+            color: var(--color-primary);
+            margin: 0 0 5px 0;
+            font-weight: 700;
+        }
+        .hotel-box p {
+            font-size: 1rem;
+            margin: 0;
+            text-align: left;
+            line-height: 1.4;
+        }
+
+        /* --- Footer --- */
+        .footer {
+            margin-top: auto; 
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        
+        .deposit-text {
+            font-weight: 700;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .book-button {
+            background-color: var(--color-accent);
+            color: white;
+            padding: 10px 25px;
+            text-decoration: none;
+            font-weight: 800;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        /* --- Print Styles --- */
+        @media print {
+            @page { margin: 0; size: A4; }
+            body { background-color: white; padding: 0; }
+            .brochure-page { 
+                width: 210mm; 
+                height: 297mm; 
+                box-shadow: none; 
+                padding: 15mm;
+                margin: 0;
+            }
+            
+            .sidebar, .hotel-box { 
+                background-color: #f0f8ff !important; 
+                -webkit-print-color-adjust: exact; 
+                print-color-adjust: exact; 
+            }
+            .book-button { 
+                background-color: #FF7754 !important; 
+                color: white !important;
+                -webkit-print-color-adjust: exact; 
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="brochure-page">
+
+        <header class="header">
+            <div class="header-content">
+                <span class="category-tag">Special Events</span>
+                <h1>St Annes 1940's 2026</h1>
+                <div class="subtitle-row">
+                    <span class="subtitle">Windermere & Wartime Weekend</span>
+                    <span class="duration-badge">2 Days</span>
+                </div>
+            </div>
+            <img src="https://lochlomondtravel.com/images/general/logo.png" alt="Loch Lomond Travel Logo" class="logo">
+        </header>
+
+        <div class="hero-images">
+            <img src="https://lochlomondtravel.com/images/churchill-parade-2022.jpg" alt="St Annes 1940s Event" >
+            <img src="https://lochlomondtravel.com/images/windermere-lake-cruises.jpg" alt="Windermere Lake" >
+            <img src="https://lochlomondtravel.com/images/legacy_preston_international_hotel.jpg" alt="Legacy Preston International Hotel" >
+        </div>
+
+        <main class="main-content">
+
+            <aside class="sidebar">
+                
+                <h3>Dates & Prices</h3>
+                <table class="sidebar-dates-table">
+                    <tr>
+                        <td>
+                            Sat 15 Aug
+                        </td>
+                        <td class="price-col">£99pp</td>
+                    </tr>
+                </table>
+
+                <h3>What's Included?</h3>
+                <ul>
+                    <li>Return coach travel with reserved seating</li>
+                    <li>1 Night Dinner, Bed & Breakfast</li>
+                    <li>Visit to St Annes for 1940's Event</li>
+                    <li>Visit to Windermere</li>
+                </ul>
+
+                <h3>Pickup Points</h3>
+                <ul>
+                    <li>Ayr</li>
+                    <li>Carlisle</li>
+                    <li>Glasgow</li>
+                    <li>Gretna Gateway</li>
+                    <li>Hamilton</li>
+                    <li>Irvine</li>
+                    <li>Kilmarnock</li>
+                </ul>
+            </aside>
+
+            <div class="content-col">
+                
+                <h2>St Annes 1940's Event</h2>
+                <p>
+                    Travel back in time as St Annes hosts its spectacular 1940s Weekend. The town transforms to celebrate the spirit of the wartime era, featuring historic vehicles, military parades, and authentic period costumes. Soak up the atmosphere with live music, dancing, and entertainment that brings the sights and sounds of the 1940s to life. Whether you are browsing the vintage stalls or watching the re-enactments, it is a nostalgic and vibrant experience for all ages.
+                </p>
+
+                <h2>Visit to Windermere</h2>
+                <p>
+                    A short visit to Windermere offers a perfect escape into the heart of the Lake District, surrounded by breathtaking natural beauty. Windermere, England’s largest natural lake, is ideal for leisurely boat cruises, water sports, or simply enjoying a peaceful walk along its shores. The town itself is charming, with boutique shops, cafés, and traditional pubs offering a welcoming atmosphere. It is a perfect destination for a memorable short visit in one of the UK’s most picturesque regions.
+                </p>
+
+                <div class="hotel-box">
+                    <h3>The Legacy Preston International Hotel</h3>
+                    <p>
+                        Offering a modern and comfortable stay, The Legacy Preston International Hotel is perfectly placed for your overnight break. With stylish rooms, free Wi-Fi, and a lift to all floors, it provides everything you need. Enjoy a freshly prepared evening meal and a hearty breakfast in the hotel’s welcoming restaurant—a clean, friendly base ideal for your getaway.
+                    </p>
+                </div>
+
+            </div>
+
+        </main>
+
+        <footer class="footer">
+            <div class="deposit-text">Deposit: £35 per person</div>
+            <a href="https://lochlomondtravel.com/itineraries/10035-st-annes-1940s-2026" class="book-button" target="_blank">Book This Event Online</a>
+        </footer>
+
+    </div>
+
+</body>
+</html>

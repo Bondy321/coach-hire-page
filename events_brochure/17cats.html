@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loch Lomond Travel - CATS, Manchester</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Base & Font Styles --- */
+        :root {
+            --font-heading: 'Raleway', sans-serif;
+            --font-body: 'Raleway', sans-serif;
+            --color-primary: #007DC3;
+            --color-secondary: #AECAEC;
+            --color-highlight: #FF7754;
+            --color-text: #333;
+            --color-white: #FFFFFF;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            font-weight: 400; 
+            color: var(--color-text);
+            line-height: 1.5;
+            background-color: #e9e9e9; /* Page background */
+            display: flex;
+            justify-content: center;
+            padding: 2rem 0;
+        }
+
+        /* --- Page Container (The A4 Sheet) --- */
+        .brochure-page {
+            width: 210mm;
+            min-height: 297mm;
+            background-color: var(--color-white);
+            padding: 20mm; /* A4 Margins */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Header --- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            border-bottom: 3px solid var(--color-primary);
+        }
+
+        .header-content h1 {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 900; 
+            color: var(--color-primary);
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        .header-content .price-duration {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-top: 5px;
+        }
+
+        .header-content .price {
+            font-family: var(--font-heading);
+            font-size: 1.7rem;
+            font-weight: 900; 
+            color: var(--color-highlight);
+        }
+
+        .header-content .duration {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 900; 
+            color: var(--color-primary);
+            margin-left: 15px;
+        }
+        
+        .header .logo {
+            max-width: 150px; 
+            height: auto;
+            flex-shrink: 0;
+            margin-left: 10px;
+        }
+
+        /* --- Image Banner (2-Column) --- */
+        .image-banner {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Two columns */
+            gap: 8px; 
+            margin-bottom: 15px; 
+        }
+
+        .image-banner img {
+            width: 100%;
+            height: 180px; 
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        /* --- Main Content Layout --- */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr; /* 2-column layout */
+            gap: 15px; 
+            flex-grow: 1; 
+        }
+
+        h2 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 900; 
+            color: var(--color-primary);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 4px; 
+            margin-bottom: 8px; 
+        }
+        
+        h3 {
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            font-weight: 900; 
+            color: var(--color-primary);
+            margin-top: 12px; 
+        }
+
+        /* --- Column 1: Inclusions & Dates --- */
+        .column-1 ul {
+            list-style-position: outside;
+            padding-left: 20px;
+            margin-bottom: 10px; /* Adjusted margin */
+            font-size: 0.9rem;
+        }
+
+        .column-1 li {
+            margin-bottom: 4px; 
+        }
+        
+        .column-1 .age-note {
+            font-size: 0.8rem;
+            font-style: italic;
+            color: var(--color-text);
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .dates-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem; 
+        }
+
+        .dates-table th, .dates-table td {
+            border: 1px solid #ddd;
+            padding: 6px 8px; 
+            text-align: left;
+        }
+
+        .dates-table th {
+            background-color: var(--color-secondary);
+            font-weight: 700; 
+        }
+
+        .dates-table td:last-child {
+            font-weight: 700; 
+            color: var(--color-highlight);
+        }
+
+        /* --- Column 2: Pickups, Show, Hotel --- */
+        .column-2 .description {
+            font-size: 0.8rem; 
+            line-height: 1.4; 
+            margin-bottom: 8px; 
+        }
+        
+        .pickup-list {
+            list-style: none;
+            padding: 0;
+            font-size: 0.85rem; 
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px; 
+            margin-bottom: 15px; /* Added margin to separate from next section */
+        }
+
+        .pickup-list li {
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        .pickup-list li::before {
+            content: '•';
+            color: var(--color-primary);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        
+        /* --- Day Trip Helper --- */
+        .brochure-page.day-trip .hotel-section {
+            display: none;
+        }
+        
+
+        /* --- Footer --- */
+        .footer {
+            margin-top: auto; /* Pushes to the bottom */
+            padding-top: 15px; 
+            border-top: 1px solid #eee;
+            text-align: center;
+        }
+        
+        .price-notice {
+            font-family: var(--font-heading);
+            font-weight: 900; 
+            color: var(--color-highlight);
+            font-size: 1rem;
+            margin-bottom: 10px; 
+        }
+
+        .book-button {
+            display: inline-block;
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 900; 
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            padding: 10px 25px; 
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .book-button:hover {
+            background-color: #005a8f; /* Darker primary */
+        }
+
+        /* --- Print-Specific Styles --- */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 20mm; /* Print margin */
+            }
+            body {
+                background-color: var(--color-white);
+                padding: 0;
+            }
+            .brochure-page {
+                width: 100%;
+                min-height: auto;
+                box-shadow: none;
+                padding: 0;
+                border: none;
+            }
+            .book-button, .dates-table th {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .book-button {
+                background-color: var(--color-primary) !important;
+                color: var(--color-white) !important;
+            }
+            .dates-table th {
+                background-color: var(--color-secondary) !important;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="brochure-page">
+
+        <header class="header">
+            <div class="header-content">
+                <h1>CATS - Live in Manchester</h1>
+                <div class="price-duration">
+                    <span class="price">From Only £149!</span>
+                    <span class="duration">2 Days</span>
+                </div>
+            </div>
+            <img src="https://lochlomondtravel.com/images/general/logo.png" alt="Loch Lomond Travel Logo" class="logo">
+        </header>
+
+        <div class="image-banner">
+            <img src="https://lochlomondtravel.com/images/catsmusicallogo.jpg" alt="CATS The Musical">
+            <img src="https://lochlomondtravel.com/images/cats.gif" alt="CATS on stage">
+        </div>
+
+        <main class="main-content">
+
+            <div class="column-1">
+                
+                <h2>What's Included?</h2>
+                <ul>
+                    <li>Return coach travel with reserved seating</li>
+                    <li>One night bed & breakfast in a carefully selected hotel</li>
+                    <li><strong>Evening performance of CATS (Stalls Seating)</strong></li>
+                    <li>A visit to Liverpool</li>
+                </ul>
+                <p class="age-note">
+                    Suitable for age 6+
+                </p>
+
+                <h2>Available Dates</h2>
+                <table class="dates-table">
+                    <thead>
+                        <tr>
+                            <th>Departing</th>
+                            <th>Days</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Sat 14 Nov, 2026</td>
+                            <td>2</td>
+                            <td>£149pp</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="column-2">
+                
+                <h2>Pickup Points</h2>
+                <ul class="pickup-list">
+                    <li>Bathgate</li>
+                    <li>Carlisle</li>
+                    <li>Dundee</li>
+                    <li>Glasgow</li>
+                    <li>Gretna</li>
+                    <li>Halbeath</li>
+                    <li>Hamilton</li>
+                </ul>
+
+                <h2>About the Show</h2>
+                <h3>The Palace Theatre Manchester</h3>
+                <p class="description">
+                    Andrew Lloyd Webber’s record-breaking musical follows the Jellicle Cats as they gather for one special night to decide which will be reborn. Featuring spectacular costumes, dazzling dance, and the iconic song 'Memory', this beloved show is a spellbinding classic of musical theatre.
+                </p>
+
+                <div class="hotel-section">
+                    <h2>Our Hotel</h2>
+                    <h3>Select Hotel</h3>
+                    <p class="description">
+                        Your overnight stay will be in one of our carefully selected hotels, confirmed before departure. All hotels are chosen for comfort and convenience, featuring en-suite facilities and tea/coffee making amenities for a relaxing stay.
+                                                           </br>
+                                                            </br>
+                                                              </br>
+
+                    </p>
+                </div>
+                
+            </div>
+
+        </main>
+
+        <footer class="footer">
+            <p class="price-notice">Prices increase as the coach fills!</p>
+            <a href="https://lochlomondtravel.com/itineraries/10297-cats-live-in-manchester" class="book-button" target="_blank">
+                Book Online Now
+            </a>
+        </footer>
+
+    </div>
+
+</body>
+</html>

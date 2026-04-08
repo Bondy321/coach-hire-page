@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loch Lomond Travel - Lewis & Harris 2026</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Base & Font Styles --- */
+        :root {
+            --font-heading: 'Raleway', sans-serif;
+            --font-body: 'Raleway', sans-serif;
+            --color-primary: #007DC3;
+            --color-secondary: #AECAEC;
+            --color-highlight: #FF7754;
+            --color-text: #333;
+            --color-white: #FFFFFF;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            font-weight: 400; 
+            color: var(--color-text);
+            line-height: 1.5;
+            background-color: #e9e9e9; /* Page background */
+            display: flex;
+            justify-content: center;
+            padding: 2rem 0;
+        }
+
+        /* --- Page Container (The A4 Sheet) --- */
+        .brochure-page {
+            width: 210mm;
+            min-height: 297mm;
+            background-color: var(--color-white);
+            padding: 20mm; /* Tighter margins */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Header --- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            border-bottom: 3px solid var(--color-primary);
+        }
+
+        .header-content h1 {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 900; 
+            color: var(--color-primary);
+            margin: 0;
+        }
+
+        .header-content .price-duration {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-top: 5px;
+        }
+
+        .header-content .price {
+            font-family: var(--font-heading);
+            font-size: 1.7rem;
+            font-weight: 900; 
+            color: var(--color-highlight);
+        }
+
+        .header-content .duration {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 900; 
+            color: var(--color-primary);
+            margin-left: 15px;
+        }
+        
+        .header .logo {
+            max-width: 150px; /* Logo size */
+            height: auto;
+        }
+
+        /* --- Image Banner --- */
+        .image-banner {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px; 
+            margin-bottom: 15px; 
+        }
+
+        .image-banner img {
+            width: 100%;
+            height: 100px; 
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        /* --- Main Content Layout --- */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr; /* 2-column layout */
+            gap: 15px; 
+            flex-grow: 1; 
+        }
+
+        h2 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 900; 
+            color: var(--color-primary);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 4px; 
+            margin-bottom: 8px; 
+        }
+        
+        h3 {
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            font-weight: 900; 
+            color: var(--color-primary);
+            margin-top: 12px; 
+        }
+
+        /* --- Column 1: Inclusions & Dates --- */
+        .column-1 ul {
+            list-style-position: outside;
+            padding-left: 20px;
+            margin-bottom: 15px; 
+            font-size: 0.9rem;
+        }
+
+        .column-1 li {
+            margin-bottom: 4px; 
+        }
+
+        .dates-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem; 
+        }
+
+        .dates-table th, .dates-table td {
+            border: 1px solid #ddd;
+            padding: 6px 8px; 
+            text-align: left;
+        }
+
+        .dates-table th {
+            background-color: var(--color-secondary);
+            font-weight: 700; 
+        }
+
+        .dates-table td:last-child {
+            font-weight: 700; 
+            color: var(--color-highlight);
+        }
+
+        /* --- Column 2: Highlights & Pickups --- */
+        .column-2 .description {
+            font-size: 0.8rem; 
+            line-height: 1.4; 
+            margin-bottom: 8px; 
+        }
+        
+        .pickup-list {
+            list-style: none;
+            padding: 0;
+            font-size: 0.85rem; 
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px; 
+        }
+
+        .pickup-list li {
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        .pickup-list li::before {
+            content: '•';
+            color: var(--color-primary);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .disclaimer-note { 
+            font-size: 0.75rem; 
+            font-style: italic;
+            background-color: var(--color-secondary);
+            border-left: 3px solid var(--color-primary);
+            padding: 8px 12px;
+            margin-top: 10px;
+        }
+        
+
+        /* --- Footer --- */
+        .footer {
+            margin-top: auto; /* Pushes to the bottom */
+            padding-top: 15px; 
+            border-top: 1px solid #eee;
+            text-align: center;
+        }
+        
+        .price-notice {
+            font-family: var(--font-heading);
+            font-weight: 900; 
+            color: var(--color-highlight);
+            font-size: 1rem;
+            margin-bottom: 10px; 
+        }
+
+        .book-button {
+            display: inline-block;
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 900; 
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            padding: 10px 25px; 
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .book-button:hover {
+            background-color: #005a8f; /* Darker primary */
+        }
+
+        /* --- Print-Specific Styles --- */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 20mm; /* Print margin */
+            }
+
+            body {
+                background-color: var(--color-white);
+                padding: 0;
+            }
+
+            .brochure-page {
+                width: 100%;
+                min-height: auto;
+                box-shadow: none;
+                padding: 0;
+                border: none;
+            }
+
+            .book-button {
+                background-color: var(--color-primary) !important;
+                color: var(--color-white) !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            .disclaimer-note {
+                background-color: var(--color-secondary) !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            .dates-table th {
+                background-color: var(--color-secondary) !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="brochure-page">
+
+        <header class="header">
+            <div class="header-content">
+                <h1>Lewis & Harris 2026</h1>
+                <div class="price-duration">
+                    <span class="price">From Only £749!</span>
+                    <span class="duration">5 Days</span>
+                </div>
+            </div>
+            <img src="https://lochlomondtravel.com/images/general/logo.png" alt="Loch Lomond Travel Logo" class="logo">
+        </header>
+
+        <div class="image-banner">
+            <img src="https://lochlomondtravel.com/images/caladh_inn.jpg" alt="Calanais Standing Stones">
+            <img src="https://lochlomondtravel.com/images/lewis___harris.jpg" alt="Luskentyre Beach, Harris">
+            <img src="https://lochlomondtravel.com/images/standing-stones-2478950_640.jpg" alt="Stornoway Harbour">
+        </div>
+
+        <main class="main-content">
+
+            <div class="column-1">
+                
+                <h2>What's Included?</h2>
+                <ul>
+                    <li>Coach travel with reserved seating</li>
+                    <li>Return ferry crossing from Ullapool to Stornoway with Caledonian MacBrayne</li>
+                    <li>Four nights dinner, bed & breakfast at the Caladh Inn, Stornoway</li>
+                    <li>Full day guided tour of Lewis (admission to Calanais Standing Stones & Gerrannan Blackhouse Villages included)</li>
+                    <li>Full day guided tour of Harris with lunch included</li>
+                    <li>Free time in Stornoway</li>
+                </ul>
+
+                <h2>Available Dates</h2>
+                <table class="dates-table">
+                    <thead>
+                        <tr>
+                            <th>Departing</th>
+                            <th>Days</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Fri 17 Jul, 2026</td>
+                            <td>5</td>
+                            <td>£749pp</td>
+                        </tr>
+                        <tr>
+                            <td>Fri 21 Aug, 2026</td>
+                            <td>5</td>
+                            <td>£749pp</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="column-2">
+                <h2>Pickup Points</h2>
+                <ul class="pickup-list">
+                    <li>Bathgate</li>
+                    <li>Edinburgh</li>
+                    <li>Glasgow</li>
+                    <li>Halbeath</li>
+                    <li>Hamilton</li>
+                    <li>Paisley</li>
+                    <li>Perth</li>
+                </ul>
+                <p class="disclaimer-note">
+                    Pickup points vary by date. Not all pickup points are available on all dates.
+                </p>
+
+                <h2>Highlights & Hotels</h2>
+                
+                <h3>Caladh Inn, Stornoway</h3>
+                <p class="description">
+                    A welcoming 3-star Visit Scotland rated hotel in the heart of Stornoway, embodying Hebridean hospitality. Features en-suite rooms, Wi-Fi, and a lift to all floors.
+                </p>
+
+                <h3>Guided Tour of Lewis</h3>
+                <p class="description">
+                    Explore the mysterious Calanais Standing Stones, shrouded in ancient mystique, and visit the Gearrannan Blackhouse Village, a living testament to traditional island life.
+                </p>
+                
+                <h3>Guided Tour of Harris</h3>
+                <p class="description">
+                    Discover pristine white sandy beaches like Luskentyre, witness the intricate craftsmanship of Harris Tweed weavers, and enjoy an included lunch at The Harris Hotel.
+                </p>
+                
+            </div>
+
+        </main>
+
+        <footer class="footer">
+            <p class="price-notice">Prices increase as the coach fills!</p>
+            <a href="https://lochlomondtravel.com/itineraries/9767-lewis-and-harris-2026" class="book-button" target="_blank">
+                Book Online Now
+            </a>
+        </footer>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loch Lomond Travel - RAF Cosford Air Show 2026</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Base & Font Styles --- */
+        :root {
+            --font-body: 'Raleway', sans-serif;
+            --color-primary: #007DC3;     /* Brand Blue */
+            --color-secondary: #e1eff9;   /* Very Light Blue Background */
+            --color-accent: #FF7754;      /* Brand Orange */
+            --color-text: #333;
+            --color-white: #FFFFFF;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            font-weight: 400; 
+            color: var(--color-text);
+            line-height: 1.4; 
+            background-color: #e9e9e9;
+            display: flex;
+            justify-content: center;
+            padding: 2rem 0;
+        }
+
+        /* --- Page Container --- */
+        .brochure-page {
+            width: 210mm;
+            height: 297mm; 
+            background-color: var(--color-white);
+            padding: 15mm; 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; 
+        }
+
+        /* --- Header Section --- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--color-primary);
+            margin-bottom: 15px;
+            flex-shrink: 0;
+        }
+
+        .header-content .category-tag {
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .header-content h1 {
+            font-size: 1.9rem;
+            font-weight: 900; 
+            color: var(--color-primary);
+            margin: 0;
+            line-height: 1;
+        }
+
+        .header-content .subtitle-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 5px;
+        }
+
+        .header-content .subtitle {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #555;
+        }
+
+        .header-content .duration-badge {
+            background-color: var(--color-primary);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        
+        .header .logo {
+            max-width: 130px; 
+            height: auto;
+            margin-left: 20px;
+            margin-bottom: 5px;
+        }
+
+        /* --- Hero Images --- */
+        .hero-images {
+            display: flex;
+            gap: 5px; 
+            margin-bottom: 20px;
+            flex-shrink: 0;
+        }
+
+        .hero-images img {
+            width: calc(33.33% - 3.33px); 
+            height: 100px; 
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        
+        .hero-images img:first-child { 
+            width: calc(40% - 3.33px); 
+        }
+        .hero-images img:nth-child(2), .hero-images img:nth-child(3) {
+            width: calc(30% - 3.33px); 
+        }
+
+        /* --- Main Layout --- */
+        .main-content {
+            display: grid;
+            grid-template-columns: 0.38fr 1fr; 
+            gap: 25px;
+            align-items: start;
+            flex-grow: 1;
+            margin-top: 0; 
+        }
+
+        /* --- Sidebar --- */
+        .sidebar {
+            background-color: var(--color-secondary);
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .sidebar h3 {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            margin-top: 15px;
+            border-bottom: 1px solid #cadbe9;
+            padding-bottom: 2px;
+        }
+        
+        .sidebar h3:first-of-type {
+            margin-top: 0;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 4px;
+            padding-left: 10px;
+            position: relative;
+            line-height: 1.3;
+        }
+
+        .sidebar li::before {
+            content: '•';
+            color: var(--color-accent);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Date Table */
+        .sidebar-dates-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.75rem;
+            margin-top: 5px;
+        }
+        .sidebar-dates-table td {
+            padding: 3px 0;
+            border-bottom: 1px solid #dcebf7;
+            vertical-align: top;
+        }
+        .sidebar-dates-table tr:last-child td {
+            border-bottom: none;
+        }
+        .sidebar-dates-table .price-col {
+            text-align: right;
+            font-weight: 800;
+            color: var(--color-accent);
+        }
+        .ticket-type {
+            display: block;
+            font-weight: 700;
+            color: #555;
+            font-size: 0.7rem;
+        }
+
+        /* --- Content Column --- */
+        .content-col h2 {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--color-primary);
+            margin-bottom: 6px;
+            border-left: 4px solid var(--color-accent);
+            padding-left: 10px;
+            line-height: 1.2;
+            margin-top: 0;
+        }
+        
+        .content-col h2:not(:first-child) {
+            margin-top: 18px;
+        }
+
+        .content-col p {
+            margin-bottom: 0;
+            text-align: justify;
+            font-size: 1rem;
+            line-height: 1.45;
+        }
+
+        .hotel-box {
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .hotel-box h3 {
+            font-size: 1.05rem;
+            color: var(--color-primary);
+            margin: 0 0 5px 0;
+            font-weight: 700;
+        }
+        .hotel-box p {
+            font-size: 1rem;
+            margin: 0;
+            text-align: left;
+            line-height: 1.4;
+        }
+        .hotel-box img {
+            width: 100%;
+            height: 120px; /* Adjust height as needed */
+            object-fit: cover;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        /* --- Footer --- */
+        .footer {
+            margin-top: auto; 
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        
+        .deposit-text {
+            font-weight: 700;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .book-button {
+            background-color: var(--color-accent);
+            color: white;
+            padding: 10px 25px;
+            text-decoration: none;
+            font-weight: 800;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        /* --- Print Styles --- */
+        @media print {
+            @page { margin: 0; size: A4; }
+            body { background-color: white; padding: 0; }
+            .brochure-page { 
+                width: 210mm; 
+                height: 297mm; 
+                box-shadow: none; 
+                padding: 15mm;
+                margin: 0;
+            }
+            
+            .sidebar, .hotel-box { 
+                background-color: #f0f8ff !important; 
+                -webkit-print-color-adjust: exact; 
+                print-color-adjust: exact; 
+            }
+            .book-button { 
+                background-color: #FF7754 !important; 
+                color: white !important;
+                -webkit-print-color-adjust: exact; 
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="brochure-page">
+
+        <header class="header">
+            <div class="header-content">
+                <span class="category-tag">Sports & Special Events</span>
+                <h1>RAF Cosford Air Show 2026</h1>
+                <div class="subtitle-row">
+                    <span class="subtitle">UK's Premier Aviation Event</span>
+                    <span class="duration-badge">3 Days</span>
+                </div>
+            </div>
+            <img src="https://lochlomondtravel.com/images/general/logo.png" alt="Loch Lomond Travel Logo" class="logo">
+        </header>
+
+        <div class="hero-images">
+            <img src="https://lochlomondtravel.com/images/raf-cosford-air-show-01.jpg" alt="Red Arrows Display" >
+            <img src="https://lochlomondtravel.com/images/cosford2.jpg" alt="Cosford Air Show Jet" >
+            <img src="https://lochlomondtravel.com/images/cosford.jpg" alt="Cosford Air Show Ground Display" >
+        </div>
+
+        <main class="main-content">
+
+            <aside class="sidebar">
+                
+                <h3>Dates & Prices</h3>
+                <table class="sidebar-dates-table">
+                    <tr>
+                        <td>
+                            Sat 13 Jun, 2026
+                            <span class="ticket-type">Entry Included</span>
+                        </td>
+                        <td class="price-col">£219pp</td>
+                    </tr>
+                </table>
+
+                <h3>What's Included?</h3>
+                <ul>
+                    <li>Return coach travel with reserved seating</li>
+                    <li>2 Nights Dinner, Bed & Breakfast</li>
+                    <li><strong>Admission to RAF Cosford Airshow</strong></li>
+                    <li>Coach transfers to the event</li>
+                </ul>
+
+                <h3>Pickup Points</h3>
+                <ul>
+                    <li>Bathgate</li>
+                    <li>Carlisle</li>
+                    <li>Dundee</li>
+                    <li>Glasgow</li>
+                    <li>Gretna Gateway</li>
+                    <li>Halbeath</li>
+                    <li>Hamilton</li>
+                </ul>
+            </aside>
+
+            <div class="content-col">
+                
+                <h2>RAF Cosford Airshow</h2>
+                <p>
+                    Prepare for an unforgettable experience at the RAF Cosford Airshow, one of the UK’s premier aviation events! With entry included, enjoy a thrilling day of spectacular flying displays, historic aircraft, and impressive ground exhibitions showcasing the very best of military and civilian aviation. 
+                </p>
+                <p style="margin-top: 10px;">
+                    From fast jets and vintage warbirds to the famous Red Arrows, it’s a day packed with excitement, atmosphere, and incredible photo opportunities – a real highlight for aviation enthusiasts and families alike.
+                </p>
+
+                <div class="hotel-box">
+                    <h3>Holiday Inn Express, Walsall</h3>
+                    <p>
+                        Enjoy a relaxing two-night dinner, bed & breakfast stay at the Holiday Inn Express, Walsall. This bright and modern hotel offers comfort and convenience throughout your stay. All bedrooms feature en-suite facilities, a TV, free Wi-Fi, and tea and coffee-making amenities - perfect for unwinding after a busy day.
+                    </p>
+                    <p style="margin-top: 10px;">
+                        A lift serves all floors for easy access, and the hotel’s friendly atmosphere makes it an ideal base for your weekend away. Dinner is served each evening in the hotel’s inviting restaurant, and breakfast is included each morning before setting off to enjoy the show.
+                    </p>
+                    <img src="https://lochlomondtravel.com/images/holiday_inn_express.jpg" alt="Holiday Inn Express Walsall Exterior" >
+                </div>
+
+            </div>
+
+        </main>
+
+        <footer class="footer">
+            <div class="deposit-text">Deposit: Only £35 per person</div>
+            <a href="https://lochlomondtravel.com/itineraries/10302-raf-cosford-air-show" class="book-button" target="_blank">Book This Event Online</a>
+        </footer>
+
+    </div>
+
+</body>
+</html>

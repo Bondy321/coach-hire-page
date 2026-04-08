@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loch Lomond Travel - Midweek Mystery</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Base & Font Styles --- */
+        :root {
+            --font-heading: 'Raleway', sans-serif;
+            --font-body: 'Raleway', sans-serif;
+            --color-primary: #007DC3;
+            --color-secondary: #AECAEC;
+            --color-highlight: #FF7754;
+            --color-text: #333;
+            --color-white: #FFFFFF;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            font-weight: 400; 
+            color: var(--color-text);
+            line-height: 1.5;
+            background-color: #e9e9e9; /* Page background */
+            display: flex;
+            justify-content: center;
+            padding: 2rem 0;
+        }
+
+        /* --- Page Container (The A4 Sheet) --- */
+        .brochure-page {
+            width: 210mm;
+            min-height: 297mm;
+            background-color: var(--color-white);
+            padding: 20mm; /* A4 Margins */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Header --- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            border-bottom: 3px solid var(--color-primary);
+        }
+
+        .header-content h1 {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 900; 
+            color: var(--color-primary);
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        .header-content .price-duration {
+            display: flex;
+            /* TWEAK: Removed justify-content: space-between; */
+            align-items: baseline;
+            margin-top: 5px;
+        }
+
+        .header-content .price {
+            font-family: var(--font-heading);
+            font-size: 1.7rem;
+            font-weight: 900; 
+            color: var(--color-highlight);
+        }
+
+        .header-content .duration {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 900; 
+            color: var(--color-primary);
+            margin-left: 15px; /* This now creates the space */
+        }
+        
+        .header .logo {
+            max-width: 150px; 
+            height: auto;
+            flex-shrink: 0;
+            margin-left: 10px;
+        }
+
+        /* --- Image Banner (2-Column) --- */
+        .image-banner {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Two columns */
+            gap: 8px; 
+            margin-bottom: 15px; 
+        }
+
+        .image-banner img {
+            width: 100%;
+            height: 180px; 
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        /* --- Main Content Layout --- */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr; /* 2-column layout */
+            gap: 15px; 
+            flex-grow: 1; 
+        }
+
+        h2 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 900; 
+            color: var(--color-primary);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 4px; 
+            margin-bottom: 8px; 
+        }
+        
+        h3 {
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            font-weight: 900; 
+            color: var(--color-primary);
+            margin-top: 12px; 
+        }
+
+        /* --- Column 1: Inclusions & Dates --- */
+        .column-1 .inclusions-list { /* Specific class for inclusions */
+            list-style-position: outside;
+            padding-left: 20px;
+            margin-bottom: 15px; 
+            font-size: 0.9rem;
+        }
+
+        .column-1 .inclusions-list li {
+            margin-bottom: 4px; 
+        }
+        
+        /* --- NEW: 2-Column Month List Styles --- */
+        .dates-by-month-columns {
+            column-count: 2; /* Use 2 columns to fill space */
+            column-gap: 20px;
+            padding: 0;
+            margin-bottom: 15px;
+        }
+        .dates-by-month-columns .month-item {
+            break-inside: avoid-column; /* Don't split a month block */
+            page-break-inside: avoid;
+            margin-bottom: 10px;
+        }
+        .dates-by-month-columns h3 {
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            font-weight: 900;
+            color: var(--color-primary);
+            margin-top: 0; /* Reset margin */
+            margin-bottom: 2px;
+        }
+        .dates-by-month-columns p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        /* Special H2 style for this dates section */
+        .column-1 .dates-header {
+            color: var(--color-highlight); /* Orange price */
+            font-size: 1.1rem; /* Slightly smaller */
+        }
+
+
+        /* --- Column 2: Pickups, Show, Hotel --- */
+        .column-2 .description {
+            font-size: 0.8rem; 
+            line-height: 1.4; 
+            margin-bottom: 8px; 
+        }
+        
+        .pickup-list {
+            list-style: none;
+            padding: 0;
+            font-size: 0.85rem; 
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 4px; 
+        }
+
+        /* (No bullets or padding on li) */
+
+
+        /* --- Disclaimer Note Style --- */
+        .disclaimer-note { 
+            font-size: 0.75rem; 
+            font-style: italic;
+            background-color: var(--color-secondary); /* Light blue background */
+            border-left: 3px solid var(--color-primary); /* Blue left border */
+            padding: 8px 12px; /* Added padding */
+            margin-top: 10px;
+            margin-bottom: 15px; 
+        }
+        
+        /* --- Day Trip Helper --- */
+        .brochure-page.day-trip .hotel-section {
+            display: none;
+        }
+        
+
+        /* --- Footer --- */
+        .footer {
+            margin-top: auto; /* Pushes to the bottom */
+            padding-top: 15px; 
+            border-top: 1px solid #eee;
+            text-align: center;
+        }
+        
+        .price-notice {
+            font-family: var(--font-heading);
+            font-weight: 900; 
+            color: var(--color-highlight);
+            font-size: 1rem;
+            margin-bottom: 10px; 
+        }
+
+        .book-button {
+            display: inline-block;
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 900; 
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            padding: 10px 25px; 
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .book-button:hover {
+            background-color: #005a8f; /* Darker primary */
+        }
+
+        /* --- Print-Specific Styles --- */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 20mm; /* Print margin */
+            }
+            body {
+                background-color: var(--color-white);
+                padding: 0;
+            }
+            .brochure-page {
+                width: 100%;
+                min-height: auto;
+                box-shadow: none;
+                padding: 0;
+                border: none;
+            }
+            .book-button, .disclaimer-note, .dates-by-month-columns {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .dates-by-month-columns {
+                column-count: 2;
+            }
+            .book-button {
+                background-color: var(--color-primary) !important;
+                color: var(--color-white) !important;
+            }
+            .disclaimer-note {
+                background-color: var(--color-secondary) !important;
+            }
+            .column-1 .dates-header {
+                color: var(--color-highlight) !important;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="brochure-page">
+
+        <header class="header">
+            <div class="header-content">
+                <h1>Midweek Mystery</h1>
+                <div class="price-duration">
+                    <span class="price">From Only £199!</span>
+                    <span class="duration">5 Days</span>
+                </div>
+            </div>
+            <img src="https://lochlomondtravel.com/images/general/logo.png" alt="Loch Lomond Travel Logo" class="logo">
+        </header>
+
+        <div class="image-banner">
+            <img src="https://lochlomondtravel.com/images/4_5.jpg" alt="Mystery Destination">
+            <img src="https://lochlomondtravel.com/images/1_14.jpg" alt="Mystery Scenery">
+        </div>
+
+        <main class="main-content">
+
+            <div class="column-1">
+                
+                <h2>What's Included?</h2>
+                <ul class="inclusions-list">
+                    <li>Return coach travel with reserved seating</li>
+                    <li>Four nights dinner, bed & breakfast at our carefully selected hotel</li>
+                    <li>Two days with Mystery Excursions</li>
+                    <li>Deposit: £45</li>
+                </ul>
+
+                <h2 class="dates-header">Available Dates - All £199pp</h2>
+                <div class="dates-by-month-columns">
+                    <div class="month-item">
+                        <h3>April 2026</h3>
+                        <p>Mon 6, 13, 20, 27</p>
+                    </div>
+                    <div class="month-item">
+                        <h3>May 2026</h3>
+                        <p>Mon 4, 11, 18, 25</p>
+                    </div>
+                    <div class="month-item">
+                        <h3>June 2026</h3>
+                        <p>Mon 1, 8, 15, 22, 29</p>
+                    </div>
+                    <div class="month-item">
+                        <h3>July 2026</h3>
+                        <p>Mon 6, 13, 20, 27</p>
+                    </div>
+                    <div class="month-item">
+                        <h3>August 2026</h3>
+                        <p>Mon 3, 10, 17, 24, 31</p>
+                    </div>
+                    <div class="month-item">
+                        <h3>September 2026</h3>
+                        <p>Mon 7, 14, 21, 28</p>
+                    </div>
+                    <div class="month-item">
+                        <h3>October 2026</h3>
+                        <p>Mon 5, 12, 19, 26</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="column-2">
+                
+                <h2>Pickup Points</h2>
+                <ul class="pickup-list">
+                    <li>Aberdeen</li>
+                    <li>Ayr</li>
+                    <li>Bathgate</li>
+                    <li>Carlisle</li>
+                    <li>Dundee</li>
+                    <li>Edinburgh</li>
+                    <li>Falkirk</li>
+                    <li>Glasgow</li>
+                    <li>Gourock</li>
+                    <li>Greenock</li>
+                    <li>Gretna</li>
+                    <li>Halbeath</li>
+                    <li>Hamilton</li>
+                    <li>Irvine</li>
+                    <li>Kilmarnock</li>
+                    <li>Paisley</li>
+                    <li>Perth</li>
+                    <li>Port Glasgow</li>
+                    <li>Stirling</li>
+                </ul>
+                <p class="disclaimer-note">
+                    Please note: Not all pickup points are available on all dates. Please check our website for specific pickup points per date.
+                </Example>
+                
+                <h2>About the Trip</h2>
+                <p class="description">
+                    Step aboard for a five-day adventure full of surprises with our Midweek Mystery Tour! The destination remains our secret until you join us, but you’ll be treated to two days of excursions to some of the UK’s hidden gems.
+                </p>
+
+                <div class="hotel-section">
+                    <h2>Select Hotel</h2>
+                    <p class="description">
+                        Your hotel will be carefully selected to provide you with the best location for your tour itinerary. Please note that they may not be suitable for all mobility needs.
+                    </p>
+                </div>
+                
+            </div>
+
+        </main>
+
+        <footer class="footer">
+            <p class="price-notice">Prices increase as the coach fills!</p>
+            <a href="https://lochlomondtravel.com/itineraries/10275-midweek-mystery" class="book-button" target="_blank">
+                Book Online Now
+            </a>
+        </footer>
+
+    </div>
+
+</body>
+</html>

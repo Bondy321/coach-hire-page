@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loch Lomond Travel - Lake Garda, Verona & Venice</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        :root {
+            --font-main: 'Raleway', sans-serif;
+            --color-primary: #1A365D;
+            --color-secondary: #AECAEC;
+            --color-highlight: #FF7754;
+            --color-green: #2ecc71;
+            --color-text: #333;
+            --color-white: #FFFFFF;
+            --color-bg: #f4f8fb;
+            --dfds-blue: #002b49;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--color-text);
+            line-height: 1.35;
+            background: #555;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        /* A4 Page */
+        .brochure-page {
+            width: 210mm;
+            height: 297mm;
+            background: var(--color-white);
+            padding: 12mm 15mm;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            page-break-after: always;
+        }
+
+        .brochure-page:last-child {
+            page-break-after: auto;
+        }
+
+        /* Badge */
+        .badge-container {
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            z-index: 10;
+        }
+
+        .duration-badge {
+            background: var(--color-highlight);
+            color: var(--color-white);
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 8px 15px;
+            border-bottom-left-radius: 8px;
+            box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 2px solid var(--color-primary);
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+            margin-top: 15px;
+            padding-right: 120px;
+        }
+
+        .header-text h1 {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .header-price {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--color-highlight);
+        }
+
+        .logo {
+            position: absolute;
+            top: 45px;
+            right: 15mm;
+            width: 110px;
+            height: auto;
+        }
+
+        /* Split Hero Images (Page 1) */
+        .hero-image-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+            align-items: start;
+            height: 200px;
+        }
+
+        .hero-image-split img {
+            display: block;
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 6px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Multi-Image Grid (Page 2) */
+        .multi-image-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .multi-image-grid img {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        /* Main Columns */
+        .main-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            min-height: 0;
+            overflow: hidden;
+            align-items: start;
+            flex-grow: 1;
+        }
+
+        /* Headings */
+        h3 {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--color-secondary);
+            margin-bottom: 10px;
+            padding-bottom: 4px;
+            display: inline-block;
+        }
+
+        /* Highlights / Hotels Box */
+        .highlight-block {
+            margin-bottom: 12px;
+        }
+
+        .highlight-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .highlight-text {
+            font-size: 0.8rem;
+            color: #444;
+            line-height: 1.4;
+        }
+
+        .hotel-box {
+            background: var(--color-bg);
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--color-primary);
+        }
+
+        /* Logistics & Inclusions */
+        .included-list {
+            list-style: none;
+            margin-bottom: 12px;
+        }
+
+        .included-list li {
+            position: relative;
+            padding-left: 18px;
+            font-size: 0.8rem;
+            margin-bottom: 6px;
+            line-height: 1.3;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .included-list li::before {
+            content: "✓";
+            color: var(--color-green);
+            font-weight: 800;
+            position: absolute;
+            left: 0;
+        }
+
+        /* DFDS Block */
+        .dfds-box {
+            border: 2px solid var(--dfds-blue);
+            background: #f8fbff;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .dfds-title {
+            font-size: 0.95rem;
+            font-weight: 900;
+            color: var(--dfds-blue);
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 6px;
+            border-bottom: 1px solid rgba(0, 43, 73, 0.2);
+            padding-bottom: 4px;
+        }
+
+        .dfds-text {
+            font-size: 0.8rem;
+            color: #333;
+            line-height: 1.3;
+            margin-bottom: 8px;
+        }
+
+        .dfds-features {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px 8px;
+            margin-bottom: 10px;
+        }
+
+        .dfds-features li {
+            font-size: 0.75rem;
+            color: #444;
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .dfds-features li::before {
+            content: "•";
+            color: var(--dfds-blue);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .dfds-meals {
+            display: inline-block;
+            background: var(--color-green);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        /* Pickups */
+        .pickup-text {
+            font-size: 0.75rem;
+            color: #555;
+            line-height: 1.3;
+            background: #f9f9f9;
+            padding: 6px;
+            border-radius: 4px;
+            border: 1px solid #eee;
+        }
+
+        /* Pricing Table */
+        .deposit-highlight {
+            font-size: 0.9rem;
+            color: var(--color-primary);
+            font-weight: 800;
+            margin-top: 5px;
+            display: block;
+            border-top: 1px dashed #ccc;
+            padding-top: 8px;
+        }
+
+        .date-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            margin-top: 8px;
+        }
+
+        .date-table td {
+            padding: 6px 4px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .date-table tr:last-child td {
+            border: none;
+        }
+
+        .dt-date {
+            font-weight: 700;
+            color: #333;
+        }
+
+        .dt-price {
+            text-align: right;
+            color: var(--color-highlight);
+            font-weight: 800;
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        .footer-cta {
+            padding-top: 12px;
+            text-align: center;
+            border-top: 1px solid #eee;
+            margin-top: auto;
+        }
+
+        .btn-book {
+            display: inline-block;
+            background: var(--color-primary);
+            color: var(--color-white);
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 10px 40px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Print rules */
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+
+            html,
+            body {
+                margin: 0 !important;
+                padding: 0 !important;
+                background: none !important;
+            }
+
+            body {
+                display: block !important;
+            }
+
+            .brochure-page {
+                width: 210mm;
+                height: 297mm;
+                background: var(--color-white);
+                padding: 12mm 15mm;
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+                box-shadow: none !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="brochure-page">
+        <div class="badge-container">
+            <div class="duration-badge">10 Days, 9 Nights</div>
+        </div>
+
+        <header class="page-header">
+            <div class="header-text">
+                <h1>Lake Garda, Verona & Venice</h1>
+                <span class="header-price">From Only £1,299pp</span>
+            </div>
+            <img src="https://lochlomondtravel.com/images/general/logo.png" alt="Loch Lomond Travel Logo"
+                class="logo" />
+        </header>
+
+        <div class="hero-image-split">
+            <img src="https://lochlomondtravel.com/images/lake_garda__1_.jpg" alt="Lake Garda Scenery" />
+            <img src="https://lochlomondtravel.com/images/venice.jpg" alt="Venice Canals" />
+        </div>
+
+        <div class="main-columns">
+            <div class="col-left">
+                <h3>Trip Highlights</h3>
+
+                <div class="highlight-block">
+                    <span class="highlight-title">Relaxing Lake Garda</span>
+                    <p class="highlight-text">
+                        Enjoy deep blue waters framed by mountains and elegant lakeside towns. Perfect for slow, easy
+                        days strolling the waterfront, browsing local shops, and soaking up the stunning photogenic
+                        scenery at your own pace.
+                    </p>
+                </div>
+
+                <div class="highlight-block">
+                    <span class="highlight-title">Romantic Verona</span>
+                    <p class="highlight-text">
+                        Discover one of Italy's most atmospheric cities. An included 2.5-hour guided tour takes you to
+                        the magnificent Roman Arena, beautiful historic squares, and iconic spots like Juliet's balcony
+                        and the Adige riverfront.
+                    </p>
+                </div>
+
+                <div class="highlight-block">
+                    <span class="highlight-title">Captivating Venice</span>
+                    <p class="highlight-text">
+                        Arrive in style with included return boat transfers. Enjoy a 2-hour guided tour exploring a maze
+                        of canals, grand waterfront architecture, and quiet bridges in this unique, world-famous lagoon
+                        city.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-right">
+                <h3>What's Included?</h3>
+                <ul class="included-list">
+                    <li>Return coach travel with reserved seating</li>
+                    <li>Overnight return sailings from Newcastle to Ijmuiden</li>
+                    <li>5 Nights Dinner, Bed & Breakfast at Parc Hotel, Lake Garda</li>
+                    <li>2 Nights Dinner, Bed & Breakfast in German overnight hotels</li>
+                    <li>Excursion to Verona with 2.5-hour guided tour</li>
+                    <li>Excursion to Venice with 2-hour guided tour & boat transfers</li>
+                    <li>Free time to enjoy Lake Garda</li>
+                </ul>
+
+                <div class="dfds-box">
+                    <span class="dfds-title">Sailing with DFDS</span>
+                    <p class="dfds-text">
+                        Start your holiday with a smooth overnight crossing from Newcastle to Ijmuiden. Settle into your
+                        included private cabin and enjoy the onboard facilities as you sail to Europe.
+                    </p>
+                    <ul class="dfds-features">
+                        <li>Private En-Suite Cabin</li>
+                        <li>Bars & Live Music</li>
+                        <li>Onboard Cinema</li>
+                        <li>Duty-Free Shopping</li>
+                    </ul>
+                    <span class="dfds-meals">Meals Onboard: Included</span>
+                </div>
+
+                <h3>Pickup Points</h3>
+                <p class="pickup-text">Bathgate, Dundee, Edinburgh, Glasgow, Halbeath, Hamilton, Paisley, Perth.</p>
+
+                <div style="margin-top: 15px;">
+                    <span class="deposit-highlight">Lock in your space for just £100 deposit!</span>
+                    <table class="date-table">
+                        <tr>
+                            <td class="dt-date">Tue 22nd Sep 2026</td>
+                            <td class="dt-price">£1,299pp</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer-cta">
+            <a href="https://lochlomondtravel.com/itineraries/10399-lake-garda-verona-and-venice" class="btn-book"
+                target="_blank" rel="noopener">
+                Book Online Now
+            </a>
+        </footer>
+    </div>
+
+
+    <div class="brochure-page">
+        <header class="page-header" style="margin-top: 0; padding-top: 10px;">
+            <div class="header-text">
+                <h1>Your Accommodation</h1>
+            </div>
+        </header>
+
+        <div class="multi-image-grid">
+            <img src="https://lochlomondtravel.com/images/lake_garda__2_.jpg" alt="Lake Garda Views" />
+            <img src="https://lochlomondtravel.com/images/verona.jpg" alt="Verona Architecture" />
+            <img src="https://lochlomondtravel.com/images/gemini_generated_image_vf6c5bvf6c5bvf6c.jpg"
+                alt="Hotel Pool" />
+            <img src="https://lochlomondtravel.com/images/venice__1_.jpg" alt="Venice Gondolas" />
+        </div>
+
+        <div class="hotel-section">
+            <div class="hotel-box">
+                <span class="highlight-title">Parc Hotel San Pietro, Lake Garda</span>
+                <p class="highlight-text" style="margin-bottom: 8px;">
+                    A beautiful, high-end base set up in the hills above Lake Garda, offering a setting that’s all about
+                    breathtaking views, calm surroundings, and a true feeling of space. The stylish finish and
+                    exceptional comfort of the rooms make it the perfect place to return to after a day of exploring.
+                </p>
+                <p class="highlight-text" style="margin-bottom: 8px;">
+                    One of the hotel’s real highlights is the heated infinity pool, designed to blend into the horizon
+                    with a striking waterfall edge and wide-open views across the lake.
+                </p>
+                <p class="highlight-text">
+                    Guests can also enjoy a panoramic terrace, a refined restaurant with a carefully chosen wine list,
+                    and a welcoming bar for evening drinks. For quieter moments, there is a dedicated “silent room” for
+                    reading and relaxing, along with massage treatments available on request, adding an extra touch of
+                    luxury to your stay.
+                </p>
+            </div>
+        </div>
+
+        <footer class="footer-cta">
+            <p style="font-size: 0.85rem; color: #555; margin-bottom: 8px;"><strong>To book your space or for more
+                    information, please visit our website.</strong></p>
+            <a href="https://lochlomondtravel.com/itineraries/10399-lake-garda-verona-and-venice" class="btn-book"
+                target="_blank" rel="noopener">
+                View Full Tour Details
+            </a>
+        </footer>
+    </div>
+
+</body>
+
+</html>

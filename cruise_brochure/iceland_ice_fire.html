@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loch Lomond Travel - Iceland's Land of Ice & Fire</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        :root {
+            --font-main: 'Raleway', sans-serif;
+            --color-primary: #004D73;
+            --color-secondary: #AECAEC;
+            --color-highlight: #FF7754;
+            --color-green: #2ecc71;
+            --color-text: #333;
+            --color-white: #FFFFFF;
+            --color-bg: #f4f8fb;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--color-text);
+            line-height: 1.35;
+            background: #555;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        /* A4 Page */
+        .brochure-page {
+            width: 210mm;
+            height: 297mm;
+            background: var(--color-white);
+            padding: 12mm 15mm;
+            position: relative;
+            display: grid;
+            grid-template-rows: auto auto 1fr auto;
+            gap: 0;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            page-break-after: always;
+        }
+
+        /* Badges */
+        .badge-container {
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            z-index: 10;
+        }
+
+        .duration-badge {
+            background: var(--color-highlight);
+            color: var(--color-white);
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 8px 15px;
+            border-bottom-left-radius: 8px;
+            box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 2px solid var(--color-primary);
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+            margin-top: 15px;
+            padding-right: 120px;
+        }
+
+        .header-text h1 {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .header-price {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--color-highlight);
+        }
+
+        .logo {
+            position: absolute;
+            top: 45px;
+            right: 15mm;
+            width: 110px;
+            height: auto;
+        }
+
+        /* Split Hero Images (Page 1) */
+        .hero-image-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .hero-image-split img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 6px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Multi-Image Grid (Page 2) */
+        .multi-image-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .multi-image-grid img {
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        /* Main Columns */
+        .main-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            min-height: 0;
+            overflow: hidden;
+            align-items: start;
+        }
+
+        /* Headings */
+        h3 {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--color-secondary);
+            margin-bottom: 10px;
+            padding-bottom: 4px;
+            display: inline-block;
+        }
+
+        /* Cruise Features Box */
+        .feature-box {
+            background: var(--color-bg);
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--color-primary);
+        }
+
+        .feature-title {
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: var(--color-primary);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .feature-text {
+            font-size: 0.8rem;
+            color: #444;
+            line-height: 1.4;
+        }
+
+        /* Logistics & Inclusions */
+        .included-list {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+
+        .included-list li {
+            position: relative;
+            padding-left: 18px;
+            font-size: 0.8rem;
+            margin-bottom: 6px;
+            line-height: 1.3;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .included-list li::before {
+            content: "✓";
+            color: var(--color-green);
+            font-weight: 800;
+            position: absolute;
+            left: 0;
+        }
+
+        .pickup-text {
+            font-size: 0.75rem;
+            color: #555;
+            line-height: 1.3;
+            background: #f9f9f9;
+            padding: 6px;
+            border-radius: 4px;
+            border: 1px solid #eee;
+        }
+
+        /* Alerts & Info */
+        .info-box {
+            border: 1px solid #34495e;
+            background: #ecf0f1;
+            color: #2c3e50;
+            padding: 8px;
+            font-size: 0.75rem;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .info-box strong {
+            display: block;
+            margin-bottom: 2px;
+            color: var(--color-primary);
+        }
+
+        /* Pricing Table */
+        .deposit-highlight {
+            font-size: 0.9rem;
+            color: var(--color-primary);
+            font-weight: 800;
+            margin-top: 5px;
+            display: block;
+            border-top: 1px dashed #ccc;
+            padding-top: 8px;
+        }
+
+        .date-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            margin-top: 8px;
+        }
+
+        .date-table td {
+            padding: 6px 4px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .date-table tr:last-child td {
+            border: none;
+        }
+
+        .dt-date {
+            font-weight: 700;
+            color: #333;
+        }
+
+        .dt-price {
+            text-align: right;
+            color: var(--color-highlight);
+            font-weight: 800;
+            font-size: 0.95rem;
+        }
+
+        /* Itinerary Timeline (Page 2) */
+        .itinerary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px 25px;
+            margin-top: 15px;
+        }
+
+        .itinerary-day {
+            margin-bottom: 5px;
+        }
+
+        .day-title {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--color-primary);
+            display: block;
+            margin-bottom: 2px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 2px;
+        }
+
+        .day-desc {
+            font-size: 0.75rem;
+            color: #444;
+            line-height: 1.4;
+        }
+
+        /* Footer */
+        .footer-cta {
+            padding-top: 12px;
+            text-align: center;
+            border-top: 1px solid #eee;
+            margin-top: auto;
+        }
+
+        .btn-book {
+            display: inline-block;
+            background: var(--color-primary);
+            color: var(--color-white);
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 10px 40px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Print rules */
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+
+            html,
+            body {
+                margin: 0 !important;
+                padding: 0 !important;
+                background: none !important;
+            }
+
+            body {
+                display: block !important;
+            }
+
+            .brochure-page {
+                width: 210mm;
+                height: 297mm;
+                box-shadow: none !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="brochure-page">
+        <div class="badge-container">
+            <div class="duration-badge">12 Days, 11 Nights</div>
+        </div>
+
+        <header class="page-header">
+            <div class="header-text">
+                <h1>Iceland's Land of Ice & Fire</h1>
+                <span class="header-price">From Only £1,669pp</span>
+            </div>
+            <img src="https://lochlomondtravel.com/images/general/logo.png" alt="Loch Lomond Travel Logo"
+                class="logo" />
+        </header>
+
+        <div class="hero-image-split">
+            <img src="https://lochlomondtravel.com/images/midbaer-1__1486546974_185_56_12_2.jpg"
+                alt="Reykjavik, Iceland" />
+            <img src="https://lochlomondtravel.com/images/klaksvik_reimunds_drone_videos-2-696x372.jpg"
+                alt="Klaksvik, Faroe Islands" />
+        </div>
+
+        <div class="main-columns">
+            <div class="col-left">
+                <div class="feature-box">
+                    <span class="feature-title">At Sea Onboard Ambition</span>
+                    <p class="feature-text">
+                        Settle into the comfort of the Ambition, sailing directly from Dundee. Relax in the hot tubs or
+                        Green Sea Spa, enjoy elegant full-board dining choices, and spend your evenings taking in
+                        spectacular live shows in the theatre.
+                    </p>
+                </div>
+
+                <h3>Cruise Highlights</h3>
+
+                <div class="feature-box"
+                    style="background: transparent; padding: 0; border: none; margin-bottom: 12px;">
+                    <span class="feature-title" style="color: var(--color-text);">Wildlife & ORCA Watches</span>
+                    <p class="feature-text">
+                        Turn your sea days into an adventure! The onboard ORCA team runs guided deck watches and talks,
+                        offering you incredible wildlife-spotting moments as you sail towards Iceland.
+                    </p>
+                </div>
+
+                <div class="feature-box"
+                    style="background: transparent; padding: 0; border: none; margin-bottom: 12px;">
+                    <span class="feature-title" style="color: var(--color-text);">Dramatic Northern Landscapes</span>
+                    <p class="feature-text">
+                        Discover the breathtaking, back-to-back inlets of Klaksvik and Runavik in the Faroe Islands,
+                        then explore the very best of Iceland, from famous multi-tier waterfalls to deep, dramatic
+                        fjords.
+                    </p>
+                </div>
+
+                <div class="feature-box"
+                    style="background: transparent; padding: 0; border: none; margin-bottom: 12px;">
+                    <span class="feature-title" style="color: var(--color-text);">Exceptional Entertainment</span>
+                    <p class="feature-text">
+                        Your days at sea are filled with informative guest speakers and daytime activities, while your
+                        evenings feature a grand Captain’s Gala Dinner, Baked Alaska Parade, and an exclusive Cocktail
+                        Party.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-right">
+                <h3>What's Included?</h3>
+                <ul class="included-list">
+                    <li>Return coach travel with reserved seating to Dundee</li>
+                    <li>11 Nights sailing onboard the <em>Ambition</em> (Departing Dundee)</li>
+                    <li>Full Board (Breakfast, Lunch, Afternoon Tea & Dinner)</li>
+                    <li>Visits to Klaksvik, Runavik, Reykjavik, Isafjordur, Akureyri & Seydisfjordur</li>
+                    <li>Captain’s Gala Dinner & Cocktail Party</li>
+                    <li>ORCA guided wildlife viewings & guest speakers</li>
+                    <li>Full daytime activities & evening entertainment</li>
+                    <li>Use of gym, swimming pools, hot tubs and spa access</li>
+                </ul>
+
+                <div class="info-box" style="border-color: var(--color-primary); background: #e8f4f8;">
+                    <strong>Optional Premium Drinks Upgrade</strong>
+                    The <em>Ambassador Expedition Package (Premium)</em> drinks package is available to pre-book for
+                    £440 per person for the entire cruise. (Note: If no package is taken, gratuities of approx. £7pppn
+                    are payable onboard).
+                </div>
+
+                <h3>Pickup Points</h3>
+                <p class="pickup-text">Ayr, Bathgate, Dundee, Edinburgh, Glasgow, Halbeath, Hamilton, Irvine,
+                    Kilmarnock.</p>
+
+                <div style="margin-top: 15px;">
+                    <span class="deposit-highlight">Lock in your space for just £100 deposit!</span>
+                    <table class="date-table">
+                        <tr>
+                            <td class="dt-date">Sun 15th Aug 2027</td>
+                            <td class="dt-price">£1,669pp</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer-cta">
+            <a href="https://lochlomondtravel.com/itineraries/10434-Icelands-Land-of-Ice-and-Fire" class="btn-book"
+                target="_blank" rel="noopener">
+                Book Online Now
+            </a>
+        </footer>
+    </div>
+
+
+    <div class="brochure-page">
+        <header class="page-header" style="margin-top: 0; padding-top: 10px;">
+            <div class="header-text">
+                <h1>Your 12-Day Itinerary</h1>
+            </div>
+        </header>
+
+        <div class="multi-image-grid">
+            <img src="https://lochlomondtravel.com/images/isafjor_ur_12_june_2019.jpg" alt="Isafjordur, Iceland" />
+            <img src="https://lochlomondtravel.com/images/1200x0_v0kqo-ezgif_com-webp-to-jpg-converter.jpg"
+                alt="Icelandic Scenery" />
+            <img src="https://lochlomondtravel.com/images/isafjordur-ezgif_com-webp-to-jpg-converter.jpg"
+                alt="Isafjordur Harbour" />
+            <img src="https://lochlomondtravel.com/images/a_night_in_nashville_performanceresize.jpg"
+                alt="Onboard Entertainment" />
+        </div>
+
+
+
+        <div class="itinerary-grid">
+            <div class="itinerary-col">
+                <div class="itinerary-day">
+                    <span class="day-title">Day 1: Embark in Dundee</span>
+                    <p class="day-desc">Travel to Dundee Cruise Terminal to board the <em>Ambition</em>. Settle into
+                        your cabin and enjoy your first evening at sea as the waterfront fades behind you.</p>
+                </div>
+                <div class="itinerary-day">
+                    <span class="day-title">Day 2: At Sea</span>
+                    <p class="day-desc">Get into the rhythm of the ship. Relax with a coffee, enjoy the daytime
+                        activities, and join the ORCA team on deck for your first guided wildlife-spotting moments.</p>
+                </div>
+                <div class="itinerary-day">
+                    <span class="day-title">Day 3: Klaksvik, Faroe Islands</span>
+                    <p class="day-desc">Enjoy a breathtaking setting between two back-to-back inlets. Immerse yourself
+                        in Faroese history, architecture, and gastronomy in the islands' second-largest town.</p>
+                </div>
+                <div class="itinerary-day">
+                    <span class="day-title">Day 4: Runavik, Faroe Islands</span>
+                    <p class="day-desc">A lively harbour town offering a lovely introduction to the Faroes. Stroll the
+                        colourful waterfront or head out across Eysturoy to view striking, dramatic gorges.</p>
+                </div>
+                <div class="itinerary-day">
+                    <span class="day-title">Day 5: At Sea</span>
+                    <p class="day-desc">A day for wellness and relaxation. Start with a workout in the gym, a swim in
+                        the pool, or head to the Green Sea Spa for a peaceful switch-off.</p>
+                </div>
+                <div class="itinerary-day">
+                    <span class="day-title">Day 6: Reykjavik, Iceland</span>
+                    <p class="day-desc">Discover Iceland's vibrant capital. View Hallgrimskirkja, the Harpa Concert
+                        Hall, and the Sun Voyager sculpture, or head out from the old harbour on a whale watching trip.
+                    </p>
+                </div>
+            </div>
+
+            <div class="itinerary-col">
+                <div class="itinerary-day">
+                    <span class="day-title">Day 7: Isafjordur, Iceland</span>
+                    <p class="day-desc">Explore the harbour and Westfjords Heritage Museum, take in the views from the
+                        Troll Seat, or visit the famous multi-tier Dynjandi waterfall.</p>
+                </div>
+                <div class="itinerary-day">
+                    <span class="day-title">Day 8: Akureyri, Iceland</span>
+                    <p class="day-desc">A relaxed waterfront town on the Eyjafjordur fjord. Visit the colorful Botanical
+                        Gardens or head straight out into the fjord to spot humpback whales.</p>
+                </div>
+                <div class="itinerary-day">
+                    <span class="day-title">Day 9: Seydisfjordur, Iceland</span>
+                    <p class="day-desc">Wander the famous rainbow-painted street leading to the blue church, explore
+                        local craft shops, or visit the nearby Gufufoss waterfall for a classic Icelandic moment.</p>
+                </div>
+                <div class="itinerary-day">
+                    <span class="day-title">Day 10: At Sea</span>
+                    <p class="day-desc">Enjoy a slow morning and a long lunch in one of the dining venues, before an
+                        evening of live shows and performances in the theatre.</p>
+                </div>
+                <div class="itinerary-day">
+                    <span class="day-title">Day 11: At Sea</span>
+                    <p class="day-desc">Your final sea day. Join a last ORCA deck watch to spot wildlife, or simply find
+                        a quiet spot to read before the final night's lively entertainment.</p>
+                </div>
+                <div class="itinerary-day">
+                    <span class="day-title">Day 12: Disembark in Dundee</span>
+                    <p class="day-desc">After breakfast, arrive back into Dundee. Disembark and rejoin your coach for
+                        the comfortable journey home, taking incredible memories with you.</p>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer-cta">
+            <p style="font-size: 0.85rem; color: #555; margin-bottom: 8px;"><strong>To book your cabin or for more
+                    information, please visit our website.</strong></p>
+            <a href="https://lochlomondtravel.com/itineraries/10434-Icelands-Land-of-Ice-and-Fire" class="btn-book"
+                target="_blank" rel="noopener">
+                View Full Cruise Details
+            </a>
+        </footer>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loch Lomond Travel - Clubland @ OVO Hydro</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Base & Font Styles --- */
+        :root {
+            --font-heading: 'Raleway', sans-serif;
+            --font-body: 'Raleway', sans-serif;
+            --color-primary: #007DC3;
+            --color-secondary: #AECAEC;
+            --color-highlight: #FF7754;
+            --color-text: #333;
+            --color-white: #FFFFFF;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            font-weight: 400; 
+            color: var(--color-text);
+            line-height: 1.5;
+            background-color: #e9e9e9; /* Page background */
+            display: flex;
+            justify-content: center;
+            padding: 1rem 0;
+        }
+
+        /* --- Page Container (The A4 Sheet) --- */
+        .brochure-page {
+            width: 210mm;
+            min-height: 297mm;
+            background-color: var(--color-white);
+            padding: 18mm; /* Standard margins */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Main Page Header --- */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start; /* Align logo to top */
+            padding-bottom: 10px;
+            margin-bottom: 15px; /* More space after header */
+            border-bottom: 3px solid var(--color-primary);
+        }
+        
+        .header-content h1 {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 900; 
+            color: var(--color-primary);
+            line-height: 1.1;
+            margin: 0;
+        }
+        
+        .header-content .header-price {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--color-highlight);
+            line-height: 1;
+        }
+        
+        .page-header .logo {
+            max-width: 150px; 
+            height: auto;
+            flex-shrink: 0;
+            margin-left: 15px;
+        }
+        
+        /* --- Main Content Wrapper --- */
+        .main-content-wrapper {
+            flex-grow: 1; /* Pushes the page-footer down */
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* --- 2x2 Image Grid --- */
+        .image-grid-4 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .image-grid-4 img {
+            width: 100%;
+            height: 110px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .event-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px; /* More gap */
+            flex-grow: 1; /* Pushes button down */
+        }
+        
+        h3 {
+            font-family: var(--font-heading);
+            font-size: 1.1rem; /* Larger */
+            font-weight: 900; 
+            color: var(--color-primary);
+            margin-bottom: 5px; 
+        }
+        
+        .event-grid ul {
+            font-size: 0.9rem; /* Larger */
+            padding-left: 20px; 
+            margin: 0;
+        }
+
+        .event-grid li {
+            margin-bottom: 4px; /* More space */
+        }
+        
+        .event-grid .spiel {
+            font-size: 0.9rem; /* Larger */
+            line-height: 1.5;
+            margin-bottom: 10px; 
+        }
+        
+        .pricing-list {
+            list-style: none;
+            padding: 0 !important;
+        }
+        
+        .pricing-list li {
+            font-size: 0.85rem; /* Larger */
+            margin-bottom: 8px !important; /* More space between groups */
+        }
+        
+        .pricing-list strong {
+            color: var(--color-highlight);
+            font-weight: 900;
+            display: block; /* Puts price on its own line */
+        }
+        
+        .event-footer {
+            text-align: center;
+            margin-top: 20px; /* More space */
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+        
+        .book-button {
+            display: inline-block;
+            font-family: var(--font-heading);
+            font-size: 1.1rem; /* Standard button */
+            font-weight: 900; 
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            padding: 10px 25px; 
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .book-button:hover {
+            background-color: #005a8f; /* Darker primary */
+        }
+        
+        /* --- Global Page Footer --- */
+        .page-footer {
+            margin-top: 10px; /* Space from button */
+            text-align: center;
+            font-size: 0.75rem;
+            font-style: italic;
+            color: #555;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+        
+        .page-footer p {
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        /* --- Print-Specific Styles --- */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 18mm; /* Print margin */
+            }
+
+            body {
+                background-color: var(--color-white);
+                padding: 0;
+            }
+
+            .brochure-page {
+                width: 100%;
+                min-height: auto;
+                box-shadow: none;
+                padding: 0;
+                border: none;
+            }
+
+            .book-button {
+                background-color: var(--color-primary) !important;
+                color: var(--color-white) !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="brochure-page">
+
+        <header class="page-header">
+            <div class="header-content">
+                <h1>Clubland @ OVO Hydro</h1>
+                <span class="header-price">From Only £25pp!</span>
+            </div>
+            <img src="https://lochlomondtravel.com/images/general/logo.png" alt="Loch Lomond Travel Logo" class="logo">
+        </header>
+
+        <main class="main-content-wrapper">
+
+            <section class="event-block">
+                
+                <div class="image-grid-4">
+                    <img src="https://lochlomondtravel.com/images/clubland.jpg" alt="Clubland event logo">
+                    <img src="https://lochlomondtravel.com/images/clubland2.jpg" alt="Clubland live event">
+                    <img src="https://lochlomondtravel.com/images/hydro.jpg" alt="OVO Hydro exterior">
+                    <img src="https://lochlomondtravel.com/images/hydro__1_.jpg" alt="OVO Hydro interior during a show">
+                </div>
+
+                <div class="event-grid">
+                    <div class="event-col-1">
+                        <h3>About Clubland Live</h3>
+                        <p class="spiel">
+                            Get ready for an unforgettable night of dance anthems as Clubland Live brings the biggest names in club classics together for one massive show! Expect an electric atmosphere packed with iconic hits and non-stop energy.
+                        </p>
+                        
+                        <h3>What's Included?</h3>
+                        <ul>
+                            <li>Return luxury coach travel with reserved seating and onboard toilet facilities</li>
+                            <li>Departure 45-60 mins after event</li>
+                        </ul>
+
+                        <h3 style="margin-top: 15px;">Available Dates</h3>
+                        <ul>
+                            <li>Saturday 9th May 2026</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="event-col-2">
+                        <h3>Price by Pickup Point</h3>
+                        <ul class="pricing-list">
+                            <li><strong>£25pp</strong>Hamilton, Paisley</li>
+                            <li><strong>£30pp</strong>Ayr, Irvine, Kilmarnock, Bathgate</li>
+                            <li><strong>£35pp</strong>Edinburgh, Halbeath, Perth</li>
+                            <li><strong>£40pp</strong>Dundee</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <footer class="event-footer">
+                    <a href="https://lochlomondtravel.com/itineraries/10306-clubland-ovo-hydro-coach-only" class="book-button" target="_blank">Book Online Now</a>
+                </footer>
+            </section>
+        
+        </main> <footer class="page-footer">
+            <p>Seat numbers and pickup times will be allocated closer to the time.</p>
+            <p>Please do not use cloakroom facilities as this may delay your return to the coach.</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>

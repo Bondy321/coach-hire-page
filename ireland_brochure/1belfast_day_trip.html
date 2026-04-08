@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loch Lomond Travel - Belfast City</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <style>
+        :root {
+            --font-main: 'Raleway', sans-serif;
+            --color-primary: #007DC3;
+            --color-secondary: #AECAEC;
+            --color-highlight: #FF7754;
+            --color-green: #2ecc71;
+            --color-text: #333;
+            --color-white: #FFFFFF;
+        }
+
+        * , *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--color-text);
+            line-height: 1.35;
+            background: #555;
+            display: flex;
+            justify-content: center;
+            padding: 2rem 0;
+        }
+
+        /* A4 Page */
+        .brochure-page {
+            width: 210mm;
+            height: 297mm;
+            background: var(--color-white);
+            padding: 12mm 15mm;
+            position: relative;
+
+            /* Grid layout is the most reliable way to pin the footer to the bottom */
+            display: grid;
+            grid-template-rows: auto auto 1fr auto;
+            gap: 0;
+
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        /* Badge */
+        .duration-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--color-highlight);
+            color: var(--color-white);
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 8px 15px;
+            border-bottom-left-radius: 8px;
+            z-index: 10;
+            box-shadow: -2px 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 2px solid var(--color-primary);
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+            margin-top: 15px;
+            padding-right: 120px; /* keeps text clear of logo */
+        }
+
+        .header-text h1 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 4px;
+            white-space: nowrap;
+        }
+
+        .header-price {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--color-highlight);
+        }
+
+        .logo {
+            position: absolute;
+            top: 45px;
+            right: 15mm;
+            width: 110px;
+            height: auto;
+        }
+
+        /* Images */
+        .image-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .image-grid img {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            height: auto;
+            object-fit: cover;
+            border-radius: 4px;
+            display: block;
+        }
+
+        /* Main Columns (fills remaining space between images and footer) */
+        .main-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+
+            /* Critical for preventing the grid from forcing the footer off-page */
+            min-height: 0;
+            overflow: hidden;
+
+            align-items: start;
+        }
+
+        .col-left,
+        .col-right {
+            min-height: 0; /* allows the grid row to behave properly in fixed-height pages */
+        }
+
+        /* Headings */
+        h3 {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 8px;
+            padding-bottom: 2px;
+            display: inline-block;
+        }
+
+        /* Left column */
+        .hotel-box {
+            background: #f0f7fc;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .highlight-block {
+            margin-bottom: 15px;
+        }
+
+        .highlight-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--color-text);
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .highlight-text {
+            font-size: 0.8rem;
+            color: #444;
+            text-align: justify;
+            line-height: 1.4;
+        }
+
+        /* Right column */
+        .logistics-box {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            min-height: 0;
+        }
+
+        .included-list {
+            list-style: none;
+            margin-bottom: 10px;
+        }
+
+        .included-list li {
+            position: relative;
+            padding-left: 15px;
+            font-size: 0.8rem;
+            margin-bottom: 4px;
+            line-height: 1.25;
+            color: #333;
+        }
+
+        .included-list li::before {
+            content: "✓";
+            color: var(--color-green);
+            font-weight: 700;
+            position: absolute;
+            left: 0;
+        }
+
+        .pickup-text {
+            font-size: 0.75rem;
+            color: #555;
+            line-height: 1.3;
+            background: #f9f9f9;
+            padding: 5px;
+            border-radius: 4px;
+        }
+
+        .warning-box {
+            border: 1px solid #e74c3c;
+            background: #fdedec;
+            color: #c0392b;
+            padding: 5px 8px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .deposit-highlight {
+            font-size: 0.85rem;
+            color: var(--color-primary);
+            font-weight: 700;
+            margin-top: 5px;
+            display: block;
+            border-top: 1px dashed #ccc;
+            padding-top: 5px;
+        }
+
+        .date-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.75rem;
+            margin-top: 5px;
+        }
+
+        .date-table td {
+            padding: 4px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .date-table tr:last-child td {
+            border: none;
+        }
+
+        .dt-date {
+            font-weight: 700;
+            color: #333;
+        }
+
+        .dt-price {
+            text-align: right;
+            color: var(--color-highlight);
+            font-weight: 700;
+        }
+
+        /* Footer (always bottom row of brochure-page grid) */
+        .footer-cta {
+            padding-top: 10px;
+            text-align: center;
+            border-top: 1px solid #eee;
+        }
+
+        .btn-book {
+            display: inline-block;
+            background: var(--color-primary);
+            color: var(--color-white);
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 10px 40px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Print rules */
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+            html, body {
+                margin: 0 !important;
+                padding: 0 !important;
+                background: none !important;
+            }
+
+            /* Body flex can cause pagination quirks in Chromium print engines */
+            body {
+                display: block !important;
+            }
+
+            .brochure-page {
+                width: 210mm;
+                height: 297mm;
+                box-shadow: none !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .btn-book {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="brochure-page">
+        <div class="duration-badge">Day Trip</div>
+
+        <header class="page-header">
+            <div class="header-text">
+                <h1>Belfast City</h1>
+                <span class="header-price">From Only £50pp</span>
+            </div>
+            <img src="https://lochlomondtravel.com/images/general/logo.png" alt="Loch Lomond Travel Logo" class="logo" />
+        </header>
+
+        <div class="image-grid">
+            <img src="https://lochlomondtravel.com/images/media_1389867_smxx.jpg" alt="Belfast City Hall" />
+            <img src="https://lochlomondtravel.com/images/image_2.jpg" alt="Belfast City" />
+        </div>
+
+        <div class="main-columns">
+            <div class="col-left">
+                <div class="hotel-box">
+                    <h3>Your Day Trip</h3>
+                    <p style="font-size: 0.8rem; line-height: 1.4; padding: 2px 0;">
+                        Enjoy a fantastic day out across the water! With return coach travel and ferry sailings taken care of, you'll have approximately <strong>4 hours of free time</strong> to explore the vibrant city centre of Belfast at your own pace.
+                    </p>
+                </div>
+
+                <h3>Trip Highlights</h3>
+
+                <div class="highlight-block">
+                    <span class="highlight-title">City Centre Charm</span>
+                    <p class="highlight-text">
+                        Soak up the vibrant atmosphere right in the heart of the city. Browse the popular shops around Donegall Place, or enjoy a relaxed stroll while taking in the friendly local vibe.
+                    </p>
+                </div>
+
+                <div class="highlight-block">
+                    <span class="highlight-title">Culture & Sightseeing</span>
+                    <p class="highlight-text">
+                        Discover history at the iconic City Hall and the serene Titanic Memorial Garden, or wander through the lively Cathedral Quarter, famous for its colourful street art and cosy pubs.
+                    </p>
+                </div>
+
+                <div class="highlight-block">
+                    <span class="highlight-title">Titanic Quarter</span>
+                    <p class="highlight-text">
+                        For those keen to explore a bit further, the world-famous Titanic Belfast museum is close by, offering plenty of waterfront cafes and unique local shops to enjoy.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-right logistics-box">
+                <h3>What's Included?</h3>
+                <ul class="included-list">
+                    <li>Return coach travel with reserved seating</li>
+                    <li>Return sailings (Cairnryan - Belfast)</li>
+                    <li>Approx. 4 hours of free time in Belfast City Centre</li>
+                </ul>
+
+                <h3>Pickup Points</h3>
+                <p class="pickup-text">Ayr, Glasgow, Paisley.</p>
+
+                <div class="warning-box">⚠️ VALID PHOTO ID REQUIRED FOR TRAVEL</div>
+                <div class="warning-box" style="border-color: #f39c12; background: #fef9e7; color: #d35400; margin-top: -5px;">
+                   Please provide nationalities at booking
+                </div>
+
+                <div style="margin-top: 10px;">
+                    <h3>Departures</h3>
+
+                    <span class="deposit-highlight">No deposit - pay in full when booking!</span>
+
+                    <table class="date-table">
+                        <tr>
+                            <td class="dt-date">Sat 3rd Oct 2026</td>
+                            <td class="dt-price">£50pp</td>
+                        </tr>
+                        <tr>
+                            <td class="dt-date">Sat 10th Oct 2026</td>
+                            <td class="dt-price">£50pp</td>
+                        </tr>
+                        <tr>
+                            <td class="dt-date">Sat 17th Oct 2026</td>
+                            <td class="dt-price">£50pp</td>
+                        </tr>
+                        <tr>
+                            <td class="dt-date">Sat 24th Oct 2026</td>
+                            <td class="dt-price">£50pp</td>
+                        </tr>
+                        <tr>
+                            <td class="dt-date">Sat 31st Oct 2026</td>
+                            <td class="dt-price">£50pp</td>
+                        </tr>
+                        <tr>
+                            <td class="dt-date">Sat 7th Nov 2026</td>
+                            <td class="dt-price">£50pp</td>
+                        </tr>
+                        <tr>
+                            <td class="dt-date">Sat 14th Nov 2026</td>
+                            <td class="dt-price">£50pp</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer-cta">
+            <a
+                href="https://lochlomondtravel.com/itineraries/10175-belfast-city"
+                class="btn-book"
+                target="_blank"
+                rel="noopener"
+            >
+                Book Online Now
+            </a>
+        </footer>
+    </div>
+</body>
+</html>

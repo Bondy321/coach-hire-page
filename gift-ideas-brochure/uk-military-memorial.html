@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loch Lomond Travel - UK Military Memorial Tour</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Base & Font Styles --- */
+        :root {
+            --font-heading: 'Raleway', sans-serif;
+            --font-body: 'Raleway', sans-serif;
+            --color-primary: #007DC3;
+            --color-secondary: #AECAEC;
+            --color-highlight: #FF7754;
+            --color-text: #333;
+            --color-white: #FFFFFF;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            font-weight: 400;
+            color: var(--color-text);
+            line-height: 1.5;
+            background-color: #e9e9e9;
+            display: flex;
+            justify-content: center;
+            padding: 2rem 0;
+        }
+
+        /* --- Page Container (The A4 Sheet) --- */
+        .brochure-page {
+            width: 210mm;
+            min-height: 297mm;
+            background-color: var(--color-white);
+            padding: 20mm;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Header --- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            border-bottom: 3px solid var(--color-primary);
+        }
+
+        .header-content h1 {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--color-primary);
+            margin: 0;
+            line-height: 1.1;
+        }
+
+        .header-content .price-duration {
+            display: flex;
+            align-items: baseline;
+            gap: 15px;
+            margin-top: 8px;
+        }
+
+        .header-content .price {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--color-highlight);
+        }
+
+        .header-content .duration {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--color-primary);
+            background-color: var(--color-secondary);
+            padding: 0 8px;
+            border-radius: 4px;
+        }
+        
+        .header .logo {
+            max-width: 140px;
+            height: auto;
+        }
+
+        /* --- Image Banner (3 Equal Columns) --- */
+        .image-banner {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .image-banner img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        /* --- Main Content Layout --- */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            flex-grow: 1;
+        }
+
+        h2 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: var(--color-primary);
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 4px;
+            margin-bottom: 10px;
+        }
+        
+        h3 {
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 900;
+            color: var(--color-text);
+            margin-top: 15px;
+            margin-bottom: 4px;
+        }
+
+        /* --- Column 1: Inclusions & Dates --- */
+        .column-1 ul {
+            list-style-position: outside;
+            padding-left: 20px;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+        }
+
+        .column-1 li {
+            margin-bottom: 5px;
+        }
+
+        /* Table Design */
+        .dates-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .dates-table th, .dates-table td {
+            border: 1px solid #ddd;
+            padding: 6px 8px;
+            text-align: left;
+        }
+
+        .dates-table th {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+        }
+
+        .dates-table td:last-child {
+            font-weight: 700;
+            color: var(--color-highlight);
+        }
+
+        /* --- Column 2: Highlights & Pickups --- */
+        .column-2 .description {
+            font-size: 0.8rem;
+            line-height: 1.4;
+            margin-bottom: 10px;
+            color: #555;
+            text-align: justify;
+        }
+        
+        .pickup-list {
+            list-style: none;
+            padding: 0;
+            font-size: 0.8rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px 10px;
+            margin-bottom: 10px;
+        }
+
+        .pickup-list li {
+            position: relative;
+            padding-left: 12px;
+        }
+        
+        .pickup-list li::before {
+            content: '›';
+            color: var(--color-highlight);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        
+        .disclaimer-note {
+            font-size: 0.7rem;
+            font-style: italic;
+            background-color: #f4f4f4;
+            border-left: 3px solid var(--color-highlight);
+            padding: 6px 10px;
+            margin-top: 5px;
+        }
+
+        /* --- Footer --- */
+        .footer {
+            margin-top: auto; /* Clasps to bottom */
+            padding-top: 35px; /* Breathing room */
+            border-top: 1px solid #eee;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .price-notice {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: var(--color-text);
+            font-size: 0.9rem;
+        }
+
+        .book-button {
+            display: inline-block;
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 900;
+            background-color: var(--color-highlight);
+            color: var(--color-white);
+            padding: 10px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: background-color 0.3s ease;
+        }
+
+        .book-button:hover {
+            background-color: #e65c39;
+        }
+
+        /* --- Print-Specific Styles --- */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 0mm;
+            }
+
+            body {
+                background-color: var(--color-white);
+                padding: 0;
+                margin: 0;
+            }
+
+            .brochure-page {
+                width: 100%;
+                min-height: auto;
+                box-shadow: none;
+                padding: 20mm;
+            }
+
+            .book-button {
+                background-color: var(--color-highlight) !important;
+                color: var(--color-white) !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            .dates-table th {
+                background-color: var(--color-primary) !important;
+                color: var(--color-white) !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="brochure-page">
+
+        <header class="header">
+            <div class="header-content">
+                <h1>UK Military Memorial Tour</h1>
+                <div class="price-duration">
+                    <span class="price">From Only £179!</span>
+                    <span class="duration">3 Days</span>
+                </div>
+            </div>
+            <img src="https://lochlomondtravel.com/images/general/logo.png" alt="Loch Lomond Travel Logo" class="logo">
+        </header>
+
+        <div class="image-banner">
+            <img src="https://lochlomondtravel.com/images/the_royal_air_force_museum_at_cosford.jpg" alt="RAF Cosford Aircraft">
+            <img src="https://lochlomondtravel.com/images/the_national_memorial_arboretum__2_.jpg" alt="National Arboretum">
+            <img src="https://lochlomondtravel.com/images/cumbria_museum_of_military_life__2_.jpg" alt="Cumbria Military Museum">
+        </div>
+
+        <main class="main-content">
+
+            <div class="column-1">
+                
+                <h2>What's Included?</h2>
+                <ul>
+                    <li>Return coach travel with reserved seating</li>
+                    <li>2 nights dinner, bed & breakfast at the Park Inn by Radisson, Birmingham</li>
+                    <li>Visit to the Cumbria Museum of Military Life</li>
+                    <li>Visit to the National Memorial Arboretum</li>
+                    <li>Visit to the Royal Air Force Museum, Cosford</li>
+                    <li><strong>Low Deposit: Only £35pp</strong></li>
+                </ul>
+
+                <h2>Available Dates</h2>
+                <table class="dates-table">
+                    <thead>
+                        <tr>
+                            <th>Departing</th>
+                            <th>Days</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Fri 27 Mar, 2026</td><td>3</td><td>£179pp</td></tr>
+                        <tr><td>Fri 15 May, 2026</td><td>3</td><td>£179pp</td></tr>
+                        <tr><td>Fri 24 Jul, 2026</td><td>3</td><td>£179pp</td></tr>
+                        <tr><td>Fri 11 Sep, 2026</td><td>3</td><td>£179pp</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="column-2">
+                
+                <h2>Tour Highlights</h2>
+                
+                <h3>RAF Museum Cosford & National Arboretum</h3>
+                <p class="description">
+                    Explore aviation history at RAF Cosford, home to over 70 aircraft including the iconic V Bombers, Spitfires, and the National Cold War display. We also visit the National Memorial Arboretum, a peaceful 150-acre site with over 400 memorials honouring the Armed Forces and emergency services.
+                </p>
+
+                <h3>Cumbria Museum of Military Life</h3>
+                <p class="description">
+                    Set inside the historic grounds of Carlisle Castle, this museum offers a fascinating look into 300 years of local military history. Discover personal stories, uniforms, and interactive exhibits, including a recreated WWI trench.
+                </p>
+
+                <h2>Pickup Points</h2>
+                <ul class="pickup-list">
+                    <li>Ayr</li>
+                    <li>Bathgate</li>
+                    <li>Carlisle</li>
+                    <li>Dundee</li>
+                    <li>Edinburgh</li>
+                    <li>Falkirk</li>
+                    <li>Glasgow</li>
+                    <li>Gretna</li>
+                    <li>Halbeath</li>
+                    <li>Hamilton</li>
+                    <li>Irvine</li>
+                    <li>Kilmarnock</li>
+                    <li>Paisley</li>
+                    <li>Perth</li>
+                </ul>
+                <p class="disclaimer-note">
+                    Pickup points vary by date. Not all points available on all dates.
+                </p>
+
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p class="price-notice">Prices increase as the coach fills!</p>
+            <a href="https://lochlomondtravel.com/itineraries/10183-uk-military-memorial-tour" class="book-button" target="_blank">
+                Book Online Now
+            </a>
+        </footer>
+
+    </div>
+
+</body>
+</html>

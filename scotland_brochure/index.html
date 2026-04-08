@@ -1,0 +1,910 @@
+<!-- Groups & Coach Hire — Fully Functional with Email Integration -->
+<section id="groups-coach-hire" class="llt-groups">
+  <style>
+    /* Scoped styles - all prefixed with .llt-groups to avoid conflicts */
+    .llt-groups {
+      --llt-brand: #0b3f91;
+      --llt-brand-ink: #0a2c67;
+      --llt-accent: #f2b705;
+      --llt-ink: #1f2937;
+      --llt-muted: #6b7280;
+      --llt-bg: #f7f9fc;
+      --llt-card: #ffffff;
+      --llt-success: #0e9f6e;
+      --llt-error: #dc2626;
+      --llt-radius: 16px;
+      --llt-shadow: 0 10px 24px rgba(0,0,0,0.08);
+      
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--llt-ink);
+      line-height: 1.6;
+      background: var(--llt-bg);
+    }
+
+    .llt-groups * {
+      box-sizing: border-box;
+    }
+
+    .llt-groups .llt-wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    /* Hero */
+    .llt-groups .llt-hero {
+      background: radial-gradient(1200px 500px at 10% -10%, #2c57b8 0%, var(--llt-brand) 40%, var(--llt-brand-ink) 100%);
+      color: #fff;
+      border-radius: var(--llt-radius);
+      padding: 48px 28px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--llt-shadow);
+    }
+    
+    .llt-groups .llt-hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="400" viewBox="0 0 1440 400" fill="none"><path d="M0,260 C300,340 540,240 720,290 C900,340 1260,340 1440,260 L1440,400 L0,400 Z" fill="%23ffffff14"/></svg>') bottom center/cover no-repeat;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+    
+    .llt-groups .llt-hero h1 {
+      margin: 0 0 8px;
+      font-size: clamp(28px, 3.2vw, 44px);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: #fff;
+    }
+    
+    .llt-groups .llt-hero p {
+      margin: 0 0 20px;
+      font-size: clamp(15px, 1.7vw, 18px);
+      color: #e8edf7;
+      max-width: 780px;
+    }
+    
+    .llt-groups .llt-cta-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    /* Buttons - Fixed hover states */
+    .llt-groups .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 2px solid transparent;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.06s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+      will-change: transform;
+    }
+    
+    .llt-groups .btn:active { 
+      transform: translateY(1px); 
+    }
+    
+    .llt-groups .btn-primary { 
+      background: #fff; 
+      color: var(--llt-brand-ink); 
+    }
+    
+    .llt-groups .btn-primary:hover { 
+      background: #f6f8ff; 
+      color: var(--llt-brand-ink); /* Ensures text stays dark on hover */
+    }
+    
+    .llt-groups .btn-ghost { 
+      background: transparent; 
+      color: #fff; 
+      border-color: #ffffff55; 
+    }
+    
+    .llt-groups .btn-ghost:hover { 
+      background: #ffffff14; 
+      color: #fff;
+    }
+    
+    .llt-groups .btn-accent {
+      background: var(--llt-accent);
+      color: #1a1a1a;
+      border: none;
+    }
+    
+    .llt-groups .btn-accent:hover {
+      background: #e5a804;
+      color: #1a1a1a; /* Ensures text stays dark */
+    }
+    
+    .llt-groups .btn-outline {
+      background: transparent; 
+      color: var(--llt-brand-ink);
+      border: 2px solid var(--llt-brand-ink);
+    }
+    
+    .llt-groups .btn-outline:hover {
+      background: var(--llt-brand-ink);
+      color: #fff; /* White text on dark background */
+    }
+
+    /* Sections */
+    .llt-groups .llt-section { 
+      margin: 36px 0; 
+    }
+    
+    .llt-groups .llt-section h2 {
+      font-size: clamp(22px, 2.5vw, 30px);
+      margin: 0 0 14px;
+      letter-spacing: -0.01em;
+      color: var(--llt-ink);
+    }
+    
+    .llt-groups .llt-subtle { 
+      color: var(--llt-muted); 
+      margin-top: -6px; 
+      margin-bottom: 16px; 
+    }
+
+    .llt-groups .llt-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 16px;
+    }
+    
+    .llt-groups .card {
+      grid-column: span 12;
+      background: var(--llt-card);
+      border-radius: var(--llt-radius);
+      box-shadow: var(--llt-shadow);
+      padding: 18px;
+    }
+    
+    @media (min-width: 720px) {
+      .llt-groups .card--3 { grid-column: span 4; }
+      .llt-groups .card--2 { grid-column: span 6; }
+    }
+    
+    .llt-groups .card h3 {
+      margin: 0 0 6px;
+      font-size: 18px;
+      color: var(--llt-ink);
+    }
+    
+    .llt-groups .card p { 
+      margin: 0; 
+      color: var(--llt-muted); 
+    }
+
+    .llt-groups .tick {
+      display: inline-grid;
+      place-items: center;
+      width: 28px; 
+      height: 28px;
+      border-radius: 8px;
+      background: #e8f7ef;
+      color: var(--llt-success);
+      font-weight: 800;
+      margin-right: 10px;
+      flex: 0 0 28px;
+    }
+    
+    .llt-groups .llt-row {
+      display: flex; 
+      gap: 10px; 
+      align-items: flex-start;
+    }
+
+    /* Options tabs */
+    .llt-groups .tabs {
+      display: flex; 
+      gap: 8px; 
+      flex-wrap: wrap; 
+      margin-bottom: 12px;
+    }
+    
+    .llt-groups .tab {
+      border: 1.5px solid #d6d9e4;
+      background: #fff;
+      color: var(--llt-ink);
+      padding: 10px 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    
+    .llt-groups .tab[aria-selected="true"] {
+      border-color: var(--llt-brand);
+      box-shadow: 0 0 0 4px #0b3f9116;
+    }
+    
+    .llt-groups .tabpanes > div { 
+      display: none; 
+    }
+    
+    .llt-groups .tabpanes > div[aria-hidden="false"] { 
+      display: block; 
+    }
+
+    .llt-groups .use-chips {
+      display: flex; 
+      flex-wrap: wrap; 
+      gap: 8px; 
+      margin: 6px 0 2px;
+    }
+    
+    .llt-groups .chip {
+      background: #eef2ff;
+      color: #333b66;
+      border: 1px solid #d9dfff;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* Steps */
+    .llt-groups .steps { 
+      counter-reset: step; 
+    }
+    
+    .llt-groups .step {
+      position: relative; 
+      padding-left: 52px; 
+      margin: 14px 0;
+    }
+    
+    .llt-groups .step::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute; 
+      left: 0; 
+      top: 0;
+      width: 36px; 
+      height: 36px; 
+      border-radius: 10px;
+      background: #eaf2ff; 
+      color: var(--llt-brand-ink);
+      display: grid; 
+      place-items: center; 
+      font-weight: 800;
+    }
+    
+    .llt-groups .step h3 {
+      margin: 0 0 6px;
+      font-size: 18px;
+      color: var(--llt-ink);
+    }
+    
+    .llt-groups .step p {
+      margin: 0;
+      color: var(--llt-muted);
+    }
+
+    /* Form */
+    .llt-groups .form {
+      display: grid; 
+      gap: 12px;
+      grid-template-columns: repeat(12, 1fr);
+    }
+    
+    .llt-groups .field { 
+      grid-column: span 12; 
+      display: grid; 
+      gap: 6px; 
+    }
+    
+    .llt-groups .field--6 { 
+      grid-column: span 12; 
+    }
+    
+    @media (min-width: 720px) { 
+      .llt-groups .field--6 { 
+        grid-column: span 6; 
+      } 
+    }
+
+    .llt-groups label { 
+      font-weight: 600; 
+      font-size: 14px; 
+      color: #111827; 
+    }
+    
+    .llt-groups input, 
+    .llt-groups select, 
+    .llt-groups textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid #d6d9e4;
+      border-radius: 12px;
+      background: #fff;
+      font-size: 15px;
+      font-family: inherit;
+      color: var(--llt-ink);
+      transition: border 0.15s ease, box-shadow 0.15s ease;
+    }
+    
+    .llt-groups input:focus, 
+    .llt-groups select:focus, 
+    .llt-groups textarea:focus {
+      outline: none;
+      border-color: var(--llt-brand);
+      box-shadow: 0 0 0 4px #0b3f9116;
+    }
+    
+    .llt-groups .help { 
+      font-size: 13px; 
+      color: var(--llt-muted); 
+    }
+    
+    .llt-groups .actions { 
+      display: flex; 
+      gap: 10px; 
+      flex-wrap: wrap; 
+      grid-column: span 12;
+    }
+    
+    .llt-groups .note {
+      font-size: 13px; 
+      color: var(--llt-muted);
+      margin: 8px 0 0;
+    }
+    
+    .llt-groups .status {
+      margin-top: 8px; 
+      font-weight: 600;
+      grid-column: span 12;
+    }
+    
+    .llt-groups .status.ok { 
+      color: var(--llt-success); 
+    }
+    
+    .llt-groups .status.err { 
+      color: var(--llt-error); 
+    }
+    
+    .llt-groups .status.loading {
+      color: var(--llt-brand);
+    }
+
+    /* FAQ */
+    .llt-groups .faq details {
+      background: #fff;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin: 10px 0;
+    }
+    
+    .llt-groups .faq summary {
+      cursor: pointer;
+      font-weight: 700;
+      list-style: none;
+      color: var(--llt-ink);
+    }
+    
+    .llt-groups .faq summary::-webkit-details-marker { 
+      display: none; 
+    }
+    
+    .llt-groups .faq p { 
+      margin: 8px 0 0; 
+      color: var(--llt-muted); 
+    }
+
+    /* Sticky bottom bar */
+    .llt-groups .sticky-cta {
+      position: sticky; 
+      bottom: 10px; 
+      z-index: 20;
+      display: grid; 
+      place-items: center;
+      margin-top: 10px;
+    }
+    
+    .llt-groups .sticky-cta .bar {
+      background: #111827;
+      color: #fff;
+      border-radius: 14px;
+      padding: 10px 12px;
+      display: flex; 
+      gap: 10px; 
+      align-items: center; 
+      justify-content: space-between;
+      width: min(680px, 100%);
+      box-shadow: var(--llt-shadow);
+    }
+    
+    .llt-groups .bar .mini { 
+      font-size: 14px; 
+      opacity: 0.88; 
+    }
+    
+    .llt-groups .bar .btn { 
+      box-shadow: none; 
+    }
+
+    /* Loading spinner */
+    .llt-groups .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid var(--llt-brand);
+      border-radius: 50%;
+      animation: llt-spin 1s linear infinite;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    @keyframes llt-spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+
+  <div class="llt-wrap">
+    <!-- HERO -->
+    <div class="llt-hero">
+      <h1>Groups and Coach Hire</h1>
+      <p>
+        Organising a trip for a club, school, workplace or a big family gathering? With Loch Lomond Travel you choose exactly what you need - coach hire only or a full package with handpicked hotels, visits and ferries. Pick a ready-made tour or let us build one from scratch for your dates, budget and pace.
+      </p>
+      <div class="llt-cta-row">
+        <a class="btn btn-primary" href="#enquiry">Request a group quote</a>
+        <a class="btn btn-ghost" href="/search-results">Browse ready-made tours</a>
+      </div>
+    </div>
+
+    <!-- HIGHLIGHTS -->
+    <section class="llt-section" aria-labelledby="highlights">
+      <h2 id="highlights">Why book your group with us</h2>
+      <p class="llt-subtle">Helpful planning, clear pricing and a team that does this every day.</p>
+      <div class="llt-grid">
+        <article class="card card--3">
+          <div class="llt-row">
+            <div class="tick">✓</div>
+            <div>
+              <h3>One partner for everything</h3>
+              <p>Coach, ferries, hotels and attraction tickets planned and confirmed for you.</p>
+            </div>
+          </div>
+        </article>
+        <article class="card card--3">
+          <div class="llt-row">
+            <div class="tick">✓</div>
+            <div>
+              <h3>Bespoke to your group</h3>
+              <p>Itineraries shaped to your size, mobility needs, pace and interests.</p>
+            </div>
+          </div>
+        </article>
+        <article class="card card--3">
+          <div class="llt-row">
+            <div class="tick">✓</div>
+            <div>
+              <h3>Experienced drivers</h3>
+              <p>Professional, friendly drivers who know the routes and the sights.</p>
+            </div>
+          </div>
+        </article>
+        <article class="card card--3">
+          <div class="llt-row">
+            <div class="tick">✓</div>
+            <div>
+              <h3>Hotel options that work</h3>
+              <p>Great value properties, with lifts and suitable facilities available on request.</p>
+            </div>
+          </div>
+        </article>
+        <article class="card card--3">
+          <div class="llt-row">
+            <div class="tick">✓</div>
+            <div>
+              <h3>Clear, fair pricing</h3>
+              <p>Transparent quotes with what is included set out so you can decide quickly.</p>
+            </div>
+          </div>
+        </article>
+        <article class="card card--3">
+          <div class="llt-row">
+            <div class="tick">✓</div>
+            <div>
+              <h3>Support before and during</h3>
+              <p>A dedicated team on hand from first idea to the day you travel.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- OPTIONS -->
+    <section class="llt-section" aria-labelledby="options">
+      <h2 id="options">Two simple ways to book</h2>
+      <div class="tabs" role="tablist" aria-label="Booking options">
+        <button class="tab" role="tab" aria-selected="true" aria-controls="pane-ready" id="tab-ready">Ready-made tours</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="pane-build" id="tab-build">Build your own</button>
+      </div>
+      <div class="tabpanes">
+        <div id="pane-ready" role="tabpanel" aria-labelledby="tab-ready" aria-hidden="false">
+          <div class="llt-grid">
+            <article class="card card--2">
+              <h3>Pick a proven itinerary</h3>
+              <p>Choose from our popular short breaks and longer holidays. We can reserve rooms, arrange meals and tailor pick-ups for your group.</p>
+              <div class="use-chips" aria-label="Suggested ideas">
+                <span class="chip">City breaks</span>
+                <span class="chip">Steam & cream</span>
+                <span class="chip">Coastal getaways</span>
+                <span class="chip">Christmas markets</span>
+                <span class="chip">TV & film locations</span>
+              </div>
+              <div class="llt-cta-row" style="margin-top:10px;">
+                <a class="btn btn-outline" href="/search-results">View ready-made tours</a>
+              </div>
+            </article>
+            <article class="card card--2">
+              <h3>Small changes welcome</h3>
+              <p>Need an extra night, a different visit or a later start? Tell us what would suit and we will adjust the plan.</p>
+              <p class="note">We will confirm inclusions and prices before you decide.</p>
+            </article>
+          </div>
+        </div>
+        <div id="pane-build" role="tabpanel" aria-labelledby="tab-build" aria-hidden="true">
+          <div class="llt-grid">
+            <article class="card card--2">
+              <h3>Coach hire only</h3>
+              <p>Already booked your venue or accommodation? Hire the coach and driver for transfers, day trips or multi-day touring.</p>
+              <div class="use-chips">
+                <span class="chip">Weddings</span>
+                <span class="chip">Sports clubs</span>
+                <span class="chip">School trips</span>
+                <span class="chip">Corporate events</span>
+                <span class="chip">Airport transfers</span>
+              </div>
+            </article>
+            <article class="card card--2">
+              <h3>Full package</h3>
+              <p>Tell us where you want to go and what you want included. We will design the route, book the hotels and secure timed tickets where needed.</p>
+              <p class="note">Sample themes include heritage rail, gardens, whisky, islands and more.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="llt-section" aria-labelledby="how-it-works">
+      <h2 id="how-it-works">How it works</h2>
+      <div class="card">
+        <div class="steps">
+          <div class="step">
+            <h3>Enquire</h3>
+            <p>Share your dates, pick-up area, group size and whether you want coach hire only or a full package.</p>
+          </div>
+          <div class="step">
+            <h3>Plan together</h3>
+            <p>We suggest routes, hotels and visits that fit your budget and time. You choose the final plan.</p>
+          </div>
+          <div class="step">
+            <h3>Confirm</h3>
+            <p>You receive a clear breakdown of what is included. We then secure all arrangements for your trip.</p>
+          </div>
+          <div class="step">
+            <h3>Travel</h3>
+            <p>Relax on a comfortable coach with a friendly driver and enjoy the journey.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ENQUIRY FORM -->
+    <section class="llt-section" id="enquiry" aria-labelledby="enquiry-title">
+      <h2 id="enquiry-title">Request a group quote</h2>
+      <p class="llt-subtle">No obligation - we will respond with options that suit your group.</p>
+      
+      <form class="card form" id="groupEnquiry" novalidate>
+        <!-- Web3Forms Access Key (hidden) -->
+        <input type="hidden" name="access_key" value="c4b5354a-d6dc-4919-a443-bdbaae9afafe">
+        <!-- Subject line for email -->
+        <input type="hidden" name="subject" value="New Group Enquiry from Website">
+        <!-- Redirect after success (optional) -->
+        <input type="hidden" name="redirect" value="https://lochlomondtravel.com/thank-you">
+        <!-- From name -->
+        <input type="hidden" name="from_name" value="Loch Lomond Travel Website">
+        
+        <div class="field field--6">
+          <label for="name">Your name</label>
+          <input type="text" id="name" name="name" autocomplete="name" required>
+        </div>
+        <div class="field field--6">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" autocomplete="email" required>
+        </div>
+        <div class="field field--6">
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" name="phone" autocomplete="tel">
+        </div>
+        <div class="field field--6">
+          <label for="groupType">Group type</label>
+          <select id="groupType" name="groupType">
+            <option>Club or society</option>
+            <option>School or college</option>
+            <option>Workplace</option>
+            <option>Friends and family</option>
+            <option>Wedding</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field field--6">
+          <label for="pickup">Pick-up area</label>
+          <input type="text" id="pickup" name="pickup" placeholder="e.g. Glasgow, Bathgate, Dundee">
+        </div>
+        <div class="field field--6">
+          <label for="passengers">Estimated passengers</label>
+          <input type="number" id="passengers" name="passengers" min="8" step="1" placeholder="e.g. 30">
+          <span class="help">Approximate is fine</span>
+        </div>
+        <div class="field field--6">
+          <label for="dates">Preferred dates</label>
+          <input type="text" id="dates" name="dates" placeholder="e.g. 12–15 May or any weekend in June">
+        </div>
+        <div class="field field--6">
+          <label for="package">What do you need?</label>
+          <select id="package" name="package">
+            <option>Coach hire only</option>
+            <option>Coach hire with accommodation</option>
+            <option>Full package with visits</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="destinations">Where would you like to go?</label>
+          <input type="text" id="destinations" name="destinations" placeholder="e.g. York, Belfast & Titanic, Skye, North Coast 500">
+        </div>
+        <div class="field">
+          <label for="message">Anything else that would help?</label>
+          <textarea id="message" name="message" rows="5" placeholder="Tell us about must-see stops, room type needs, budget guidance, accessibility or timing preferences."></textarea>
+        </div>
+        
+        <!-- Honeypot field for spam protection (hidden from users) -->
+        <input type="checkbox" name="botcheck" style="display: none;">
+        
+        <div class="actions">
+          <button type="submit" class="btn btn-accent">Send enquiry</button>
+          <a href="/search-results" class="btn btn-outline">Explore ready-made tours</a>
+        </div>
+        <p id="formStatus" class="status" aria-live="polite"></p>
+        <p class="note">By sending this form you agree that we may contact you about your enquiry.</p>
+      </form>
+    </section>
+
+    <!-- FAQ -->
+    <section class="llt-section" aria-labelledby="faq-title">
+      <h2 id="faq-title">Frequently asked questions</h2>
+      <div class="faq">
+        <details>
+          <summary>Can we book coach hire without accommodation?</summary>
+          <p>Yes. Many groups use us for single transfers, day trips or multi-day touring with their own hotel or venue already arranged.</p>
+        </details>
+        <details>
+          <summary>Do you offer full packages with hotels and visits?</summary>
+          <p>Yes. Tell us your ideas and we will put together a plan with hotels, meals and timed attraction tickets where needed.</p>
+        </details>
+        <details>
+          <summary>Can you tailor pick-ups for our group?</summary>
+          <p>Of course. We will plan a sensible pick-up route based on where your travellers live, then confirm times in advance.</p>
+        </details>
+        <details>
+          <summary>What size of coach can you provide?</summary>
+          <p>We can advise the best vehicle for your numbers - from smaller vehicles to full-size touring coaches, all with seatbelts and luggage space.</p>
+        </details>
+        <details>
+          <summary>When will we receive our quote?</summary>
+          <p>We aim to come back quickly with clear options and pricing. If you are working to a deadline, please mention this in your enquiry.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- STICKY CTA -->
+    <div class="sticky-cta" aria-hidden="false">
+      <div class="bar">
+        <span class="mini">Planning a trip for a group?</span>
+        <a class="btn btn-primary" href="#enquiry">Request a quote</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Structured data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Group Coach Hire and Private Group Tours",
+    "provider": {
+      "@type": "TravelAgency",
+      "name": "Loch Lomond Travel",
+      "url": "https://lochlomondtravel.com"
+    },
+    "areaServed": "United Kingdom",
+    "serviceType": ["Coach hire", "Group travel packages", "Private tours"],
+    "description": "Coach hire and tailor-made group tours. Choose coach-only or full packages with hotels and visits. Ready-made itineraries also available.",
+    "offers": {
+      "@type": "Offer",
+      "availability": "https://schema.org/InStock",
+      "priceCurrency": "GBP"
+    }
+  }
+  </script>
+
+  <!-- JavaScript for tabs and form functionality -->
+  <script>
+    (function() {
+      // Tabs functionality
+      const tabs = document.querySelectorAll('.llt-groups .tab');
+      const panes = {
+        ready: document.getElementById('pane-ready'),
+        build: document.getElementById('pane-build')
+      };
+      
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.setAttribute('aria-selected', 'false'));
+          tab.setAttribute('aria-selected', 'true');
+          const isReady = tab.id === 'tab-ready';
+          panes.ready.setAttribute('aria-hidden', String(!isReady));
+          panes.build.setAttribute('aria-hidden', String(isReady));
+        });
+      });
+
+      // Smooth scroll for in-page anchors
+      document.querySelectorAll('.llt-groups a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+          const id = a.getAttribute('href').slice(1);
+          const el = document.getElementById(id);
+          if (el) {
+            e.preventDefault();
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+
+      // Form submission with Web3Forms
+      const form = document.getElementById('groupEnquiry');
+      const status = document.getElementById('formStatus');
+
+      // IMPORTANT: Replace with your actual Web3Forms access key
+      // Get your free key at: https://web3forms.com/
+      const WEB3FORMS_ACCESS_KEY = 'c4b5354a-d6dc-4919-a443-bdbaae9afafe';
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Clear previous status
+        status.textContent = '';
+        status.className = 'status';
+
+        // Basic validation
+        const name = form.name.value.trim();
+        const email = form.email.value.trim();
+        const passengers = form.passengers.value.trim();
+
+        if (!name || !email) {
+          status.textContent = 'Please add your name and email so we can reply.';
+          status.classList.add('err');
+          return;
+        }
+
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          status.textContent = 'Please enter a valid email address.';
+          status.classList.add('err');
+          return;
+        }
+
+        if (passengers && Number(passengers) < 8) {
+          status.textContent = 'Note: Group size appears low. We\'ll advise the best option for your needs.';
+          status.classList.add('ok');
+        }
+
+        // Show loading state
+        status.innerHTML = 'Sending your enquiry<span class="spinner"></span>';
+        status.classList.add('loading');
+
+        // Prepare form data
+        const formData = new FormData(form);
+        formData.append('access_key', WEB3FORMS_ACCESS_KEY);
+        
+        // Add timestamp
+        const now = new Date();
+        formData.append('timestamp', now.toLocaleString('en-GB', { 
+          timeZone: 'Europe/London',
+          dateStyle: 'full',
+          timeStyle: 'short'
+        }));
+
+        // Custom email template data
+        const enquiryDetails = {
+          'Name': name,
+          'Email': email,
+          'Phone': form.phone.value || 'Not provided',
+          'Group Type': form.groupType.value,
+          'Pick-up Area': form.pickup.value || 'Not specified',
+          'Estimated Passengers': form.passengers.value || 'Not specified',
+          'Preferred Dates': form.dates.value || 'Flexible',
+          'Package Type': form.package.value,
+          'Destinations': form.destinations.value || 'To be discussed',
+          'Additional Notes': form.message.value || 'None'
+        };
+
+        // Format the message for better email readability
+        let emailBody = 'New group enquiry received:\n\n';
+        for (const [key, value] of Object.entries(enquiryDetails)) {
+          emailBody += `${key}: ${value}\n`;
+        }
+        formData.append('message', emailBody);
+
+        try {
+          const response = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            body: formData
+          });
+
+          const data = await response.json();
+
+          if (data.success) {
+            status.innerHTML = '✓ Enquiry sent successfully! We\'ll be in touch within 1 business day.';
+            status.className = 'status ok';
+            
+            // Clear form
+            form.reset();
+            
+            // Clear localStorage
+            const persistKeys = ['name','email','phone','groupType','pickup','passengers','dates','package','destinations','message'];
+            persistKeys.forEach(k => localStorage.removeItem('groups_' + k));
+            
+            // Optional: Scroll to status message
+            status.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          } else {
+            throw new Error('Submission failed');
+          }
+        } catch (error) {
+          console.error('Form submission error:', error);
+          status.innerHTML = 'Sorry, there was an error sending your enquiry. Please try again or email us directly at <a href="mailto:hello@lochlomondtravel.com">hello@lochlomondtravel.com</a>';
+          status.className = 'status err';
+        }
+      });
+
+      // Auto-save form data to localStorage
+      const persistKeys = ['name','email','phone','groupType','pickup','passengers','dates','package','destinations','message'];
+      
+      // Load saved data
+      persistKeys.forEach(key => {
+        const element = document.getElementById(key);
+        if (element) {
+          const savedValue = localStorage.getItem('groups_' + key);
+          if (savedValue) {
+            element.value = savedValue;
+          }
+          
+          // Save on input
+          element.addEventListener('input', () => {
+            localStorage.setItem('groups_' + key, element.value);
+          });
+        }
+      });
+    })();
+  </script>
+</section>
