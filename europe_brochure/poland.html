@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loch Lomond Travel - Poland Explorer & Auschwitz</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        :root {
+            --font-main: 'Raleway', sans-serif;
+            --color-primary: #1A365D;
+            --color-secondary: #AECAEC;
+            --color-highlight: #FF7754;
+            --color-green: #2ecc71;
+            --color-text: #333;
+            --color-white: #FFFFFF;
+            --color-bg: #f4f8fb;
+            --ferry-blue: #002b49;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--color-text);
+            line-height: 1.35;
+            background: #555;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        /* A4 Page */
+        .brochure-page {
+            width: 210mm;
+            height: 297mm;
+            background: var(--color-white);
+            padding: 12mm 15mm;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            page-break-after: always;
+        }
+
+        .brochure-page:last-child {
+            page-break-after: auto;
+        }
+
+        /* Badge */
+        .badge-container {
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            z-index: 10;
+        }
+
+        .duration-badge {
+            background: var(--color-highlight);
+            color: var(--color-white);
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 8px 15px;
+            border-bottom-left-radius: 8px;
+            box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 2px solid var(--color-primary);
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+            margin-top: 15px;
+            padding-right: 120px;
+        }
+
+        .header-text h1 {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .header-price {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--color-highlight);
+        }
+
+        .logo {
+            position: absolute;
+            top: 45px;
+            right: 15mm;
+            width: 110px;
+            height: auto;
+        }
+
+        /* Split Hero Images (Page 1) */
+        .hero-image-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+            align-items: start;
+            height: 200px;
+        }
+
+        .hero-image-split img {
+            display: block;
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 6px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Multi-Image Grid (Page 2) */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .image-grid img {
+            width: 100%;
+            height: 22vh;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        /* Main Columns */
+        .main-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            min-height: 0;
+            overflow: hidden;
+            align-items: start;
+            flex-grow: 1;
+        }
+
+        /* Headings */
+        h3 {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--color-secondary);
+            margin-bottom: 10px;
+            padding-bottom: 4px;
+            display: inline-block;
+        }
+
+        /* Highlights / Hotels Box */
+        .highlight-block {
+            margin-bottom: 12px;
+        }
+
+        .highlight-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .highlight-text {
+            font-size: 0.8rem;
+            color: #444;
+            line-height: 1.4;
+        }
+
+        .hotel-box {
+            background: var(--color-bg);
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--color-primary);
+        }
+
+        /* Logistics & Inclusions */
+        .included-list {
+            list-style: none;
+            margin-bottom: 12px;
+        }
+
+        .included-list li {
+            position: relative;
+            padding-left: 18px;
+            font-size: 0.8rem;
+            margin-bottom: 6px;
+            line-height: 1.3;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .included-list li::before {
+            content: "✓";
+            color: var(--color-green);
+            font-weight: 800;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Ferry Block */
+        .ferry-box {
+            border: 2px solid var(--ferry-blue);
+            background: #f8fbff;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .ferry-title {
+            font-size: 0.95rem;
+            font-weight: 900;
+            color: var(--ferry-blue);
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 6px;
+            border-bottom: 1px solid rgba(0, 43, 73, 0.2);
+            padding-bottom: 4px;
+        }
+
+        .ferry-text {
+            font-size: 0.8rem;
+            color: #333;
+            line-height: 1.3;
+            margin-bottom: 8px;
+        }
+
+        .ferry-features {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px 8px;
+            margin-bottom: 10px;
+        }
+
+        .ferry-features li {
+            font-size: 0.75rem;
+            color: #444;
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .ferry-features li::before {
+            content: "•";
+            color: var(--ferry-blue);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .ferry-meals {
+            display: inline-block;
+            background: var(--color-green);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        /* Pickups */
+        .pickup-text {
+            font-size: 0.75rem;
+            color: #555;
+            line-height: 1.3;
+            background: #f9f9f9;
+            padding: 6px;
+            border-radius: 4px;
+            border: 1px solid #eee;
+        }
+
+        /* Pricing Table */
+        .deposit-highlight {
+            font-size: 0.9rem;
+            color: var(--color-primary);
+            font-weight: 800;
+            margin-top: 5px;
+            display: block;
+            border-top: 1px dashed #ccc;
+            padding-top: 8px;
+        }
+
+        .date-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            margin-top: 8px;
+        }
+
+        .date-table td {
+            padding: 6px 4px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .date-table tr:last-child td {
+            border: none;
+        }
+
+        .dt-date {
+            font-weight: 700;
+            color: #333;
+        }
+
+        .dt-price {
+            text-align: right;
+            color: var(--color-highlight);
+            font-weight: 800;
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        .footer-cta {
+            padding-top: 12px;
+            text-align: center;
+            border-top: 1px solid #eee;
+            margin-top: auto;
+        }
+
+        .btn-book {
+            display: inline-block;
+            background: var(--color-primary);
+            color: var(--color-white);
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 10px 40px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Print rules */
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+
+            html,
+            body {
+                margin: 0 !important;
+                padding: 0 !important;
+                background: none !important;
+            }
+
+            body {
+                display: block !important;
+            }
+
+            .brochure-page {
+                width: 210mm;
+                height: 297mm;
+                background: var(--color-white);
+                padding: 12mm 15mm;
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+                box-shadow: none !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="brochure-page">
+        <div class="badge-container">
+            <div class="duration-badge">11 Days</div>
+        </div>
+
+        <header class="page-header">
+            <div class="header-text">
+                <h1>Poland Explorer & Auschwitz</h1>
+                <span class="header-price">From Only £2,089pp</span>
+            </div>
+            <img src="https://lochlomondtravel.com/images/general/logo.png" alt="Loch Lomond Travel Logo"
+                class="logo" />
+        </header>
+
+        <div class="hero-image-split">
+            <img src="https://lochlomondtravel.com/images/krystianwin-church-5541729_1920__1_.jpg"
+                alt="Kraków Architecture" />
+            <img src="https://lochlomondtravel.com/images/piotrzakrzewski-camp-7432553_1920.jpg"
+                alt="Auschwitz-Birkenau" />
+        </div>
+
+        <div class="main-columns">
+            <div class="col-left">
+                <h3>Trip Highlights</h3>
+
+                <div class="highlight-block">
+                    <span class="highlight-title">Historic Kraków</span>
+                    <p class="highlight-text">
+                        Discover one of Poland’s most captivating cities, featuring a beautifully preserved Old Town,
+                        grand medieval squares, and the famous Renaissance Cloth Hall. Wander the historic streets,
+                        visit the royal Wawel Castle, or explore the atmospheric Kazimierz district.
+                    </p>
+                </div>
+
+                <div class="highlight-block">
+                    <span class="highlight-title">Auschwitz-Birkenau</span>
+                    <p class="highlight-text">
+                        A deeply moving guided visit to the largest of the German Nazi concentration and extermination
+                        camps. Now a UNESCO World Heritage Site, it stands as a vital and significant place of
+                        remembrance, education, and reflection.
+                    </p>
+                </div>
+
+                <div class="highlight-block">
+                    <span class="highlight-title">Wieliczka Salt Mine</span>
+                    <p class="highlight-text">
+                        Journey deep underground into a remarkable world of salt-carved chambers, winding passageways,
+                        and subterranean lakes. The absolute highlight is the breathtaking Chapel of St Kinga, a vast
+                        underground cathedral carved entirely from rock salt.
+                    </p>
+                </div>
+
+                <div class="highlight-block">
+                    <span class="highlight-title">Zakopane & Dunajec Gorge</span>
+                    <p class="highlight-text">
+                        Sitting at the foot of the Tatra Mountains, Zakopane offers unique highland culture and dramatic
+                        peaks. Enjoy a scenic rafting experience down the Dunajec River Gorge, drifting peacefully on a
+                        traditional wooden raft past steep cliffs and forested slopes.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-right">
+                <h3>What's Included?</h3>
+                <ul class="included-list">
+                    <li>Return coach travel with reserved seating</li>
+                    <li>Overnight P&O sailings with dinner and breakfast</li>
+                    <li>Overnight return hotels in Germany (DB&B)</li>
+                    <li>3 Nights Dinner, Bed & Breakfast in Kraków</li>
+                    <li>3 Nights Dinner, Bed & Breakfast in Zakopane</li>
+                    <li>Guided visit to Auschwitz-Birkenau</li>
+                    <li>Excursion to the Wieliczka Salt Mine</li>
+                    <li>Guided sightseeing tour of Kraków</li>
+                    <li>Dunajec River Gorge rafting experience</li>
+                    <li>Free time to enjoy Kraków & Zakopane</li>
+                </ul>
+
+                <div class="ferry-box">
+                    <span class="ferry-title">P&O Overnight Sailings</span>
+                    <p class="ferry-text">
+                        Settle into your cabin, enjoy a hot dinner and wake up in the Netherlands. P&O gives you a
+                        smooth crossing with food, shops and evening entertainment, so the journey becomes part of the
+                        holiday.
+                    </p>
+                    <ul class="ferry-features">
+                        <li>Inside Bunk Cabin</li>
+                        <li>Bars & Live Music</li>
+                        <li>Duty-Free Shopping</li>
+                        <li>Cabin Upgrades Available</li>
+                    </ul>
+                    <span class="ferry-meals">Dinner & Breakfast: Included</span>
+                </div>
+
+                <h3>Pickup Points</h3>
+                <p class="pickup-text">Carlisle, Dundee, Edinburgh, Glasgow, Gretna, Halbeath, Hamilton.</p>
+
+                <div style="margin-top: 15px;">
+                    <span class="deposit-highlight">Lock in your space for just £100 deposit!</span>
+                    <table class="date-table">
+                        <tr>
+                            <td class="dt-date">Mon 17th Aug 2026</td>
+                            <td class="dt-price">£2,089pp</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer-cta">
+            <a href="https://lochlomondtravel.com/itineraries/10475-poland-explorer-and-auschwitz" class="btn-book"
+                target="_blank" rel="noopener">
+                Book Online Now
+            </a>
+        </footer>
+    </div>
+
+
+    <div class="brochure-page">
+        <header class="page-header" style="margin-top: 0; padding-top: 10px;">
+            <div class="header-text">
+                <h1>Your Accommodation</h1>
+            </div>
+        </header>
+
+        <div class="image-grid">
+            <img src="https://lochlomondtravel.com/images/prodeepahmeed-nature-6713323_1920.jpg"
+                alt="Zakopane Scenery" />
+            <img src="https://lochlomondtravel.com/images/nosalowy_park_zakopane_pokoj.jpg" alt="Nosalowy Park Room" />
+            <img src="https://lochlomondtravel.com/images/pando.jpg" alt="P&O Ship" />
+            <img src="https://lochlomondtravel.com/images/hotel_wyspianski.jpg" alt="Hotel Wyspiański" />
+        </div>
+
+        <div class="hotel-section">
+            <div class="hotel-box">
+                <span class="highlight-title">Hotel Wyspiański, Kraków</span>
+                <p class="highlight-text" style="margin-bottom: 8px;">
+                    A comfortable 3-star hotel in the heart of Kraków, well placed for enjoying the city’s historic
+                    centre. The famous Main Market Square is just a short walk away, with the Planty Park, cafés,
+                    restaurants, and many of Kraków’s best-known sights close by.
+                </p>
+                <p class="highlight-text">
+                    The hotel offers bright, simple and welcoming accommodation, with rooms featuring en-suite
+                    facilities, Wi-Fi, TV, and useful in-room comforts. It features a lift, 24-hour reception, a
+                    restaurant, and a bar, making it a highly practical and convenient base.
+                </p>
+            </div>
+
+            <div class="hotel-box">
+                <span class="highlight-title">Nosalowy Park & Spa Hotel, Zakopane</span>
+                <p class="highlight-text" style="margin-bottom: 8px;">
+                    An elegant 5-star hotel in the centre of Zakopane, set within a peaceful beech park just a short
+                    walk from the famous Krupówki Street. It combines historic architecture with a stylish modern wing
+                    inspired by Zakopane Art Nouveau and Art Deco design.
+                </p>
+                <p class="highlight-text">
+                    Rooms are finished to a high standard with comfortable furnishings, Wi-Fi, and bathrobes. The hotel
+                    also boasts a high-quality restaurant, bar, indoor swimming pool, wellness area, saunas, and fitness
+                    facilities, giving it a real sense of luxury during your stay.
+                </p>
+            </div>
+
+            <div class="hotel-box">
+                <span class="highlight-title">P&O Overnight Ferries</span>
+                <p class="highlight-text" style="margin-bottom: 8px;">
+                    Your journey to and from Europe includes overnight sailings from Hull. Standard accommodation is
+                    provided in private twin inside bunk cabins, offering a comfortable place to rest.
+                </p>
+                <p class="highlight-text">
+                    Upgrades to outside cabins or level beds are available upon request. During your crossing, you can
+                    enjoy a hot dinner in the evening and breakfast the following morning, alongside onboard
+                    entertainment and duty-free shopping to make the travel part of your holiday.
+                </p>
+            </div>
+        </div>
+
+        <footer class="footer-cta">
+            <p style="font-size: 0.85rem; color: #555; margin-bottom: 8px;"><strong>To book your space or for more
+                    information, please visit our website.</strong></p>
+            <a href="https://lochlomondtravel.com/itineraries/10475-poland-explorer-and-auschwitz" class="btn-book"
+                target="_blank" rel="noopener">
+                View Full Tour Details
+            </a>
+        </footer>
+    </div>
+
+</body>
+
+</html>

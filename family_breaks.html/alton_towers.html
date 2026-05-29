@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loch Lomond Travel - Alton Towers</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        :root {
+            /* Brighter, family-friendly palette */
+            --font-main: 'Raleway', sans-serif;
+            --color-primary: #00609C;
+            --color-secondary: #99D6FF;
+            --color-highlight: #FF8A00;
+            --color-green: #2ecc71;
+            --color-text: #333;
+            --color-white: #FFFFFF;
+            --color-bg: #F4F9FF;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--color-text);
+            line-height: 1.35;
+            background: #555;
+            display: flex;
+            justify-content: center;
+            padding: 2rem 0;
+        }
+
+        /* A4 Page */
+        .brochure-page {
+            width: 210mm;
+            height: 297mm;
+            background: var(--color-white);
+            padding: 12mm 15mm;
+            position: relative;
+            display: grid;
+            grid-template-rows: auto auto 1fr auto;
+            gap: 0;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Badge (Wrapper removed) */
+        .duration-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--color-highlight);
+            color: var(--color-white);
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 8px 15px;
+            border-bottom-left-radius: 10px;
+            z-index: 10;
+            box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 2px solid var(--color-primary);
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+            margin-top: 15px;
+            padding-right: 120px;
+        }
+
+        .header-text h1 {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .header-price {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--color-highlight);
+        }
+
+        .logo {
+            position: absolute;
+            top: 45px;
+            right: 15mm;
+            width: 110px;
+            height: auto;
+        }
+
+        /* Image Grid with 22vh Height */
+        .image-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 12px;
+            align-items: start;
+        }
+
+        .image-grid img {
+            display: block;
+            width: 100%;
+            height: 22vh;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Main Columns */
+        .main-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            min-height: 0;
+            overflow: hidden;
+            align-items: start;
+        }
+
+        /* Headings */
+        h3 {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--color-secondary);
+            margin-bottom: 10px;
+            padding-bottom: 4px;
+            display: inline-block;
+        }
+
+        /* Hotel Box */
+        .hotel-box {
+            background: var(--color-bg);
+            padding: 12px 14px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border-left: 4px solid var(--color-highlight);
+        }
+
+        .hotel-list {
+            list-style: none;
+            font-size: 0.8rem;
+        }
+
+        .hotel-list li {
+            margin-bottom: 4px;
+            padding-left: 10px;
+            position: relative;
+            line-height: 1.3;
+        }
+
+        .hotel-list li::before {
+            content: "•";
+            color: var(--color-primary);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Trip Highlights */
+        .highlight-block {
+            margin-bottom: 12px;
+        }
+
+        .highlight-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .highlight-text {
+            font-size: 0.8rem;
+            color: #444;
+            line-height: 1.4;
+        }
+
+        /* Logistics & Inclusions */
+        .included-list {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+
+        .included-list li {
+            position: relative;
+            padding-left: 18px;
+            font-size: 0.8rem;
+            margin-bottom: 6px;
+            line-height: 1.3;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .included-list li::before {
+            content: "✓";
+            color: var(--color-green);
+            font-weight: 800;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Pickups & Info */
+        .pickup-text {
+            font-size: 0.75rem;
+            color: #555;
+            line-height: 1.3;
+            background: #f9f9f9;
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            margin-bottom: 8px;
+        }
+
+        /* Pricing Table */
+        .deposit-highlight {
+            font-size: 0.9rem;
+            color: var(--color-primary);
+            font-weight: 800;
+            margin-top: 5px;
+            display: block;
+            border-top: 1px dashed #ccc;
+            padding-top: 8px;
+        }
+
+        .date-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            margin-top: 8px;
+        }
+
+        .date-table td {
+            padding: 6px 4px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .date-table tr:last-child td {
+            border: none;
+        }
+
+        .dt-date {
+            font-weight: 700;
+            color: #333;
+        }
+
+        .dt-price {
+            text-align: right;
+            color: var(--color-highlight);
+            font-weight: 800;
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        .footer-cta {
+            padding-top: 12px;
+            text-align: center;
+            border-top: 1px solid #eee;
+            margin-top: auto;
+        }
+
+        .btn-book {
+            display: inline-block;
+            background: #007DC3;
+            color: var(--color-white);
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 10px 40px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Print rules */
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+
+            html,
+            body {
+                margin: 0 !important;
+                padding: 0 !important;
+                background: none !important;
+            }
+
+            body {
+                display: block !important;
+            }
+
+            .brochure-page {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="brochure-page">
+        <div class="duration-badge">2 Days, 1 Night</div>
+
+        <header class="page-header">
+            <div class="header-text">
+                <h1>Alton Towers</h1>
+                <span class="header-price">From Only £149pp</span>
+            </div>
+            <img src="https://lochlomondtravel.com/images/general/logo.png" alt="Loch Lomond Travel Logo"
+                class="logo" />
+        </header>
+
+        <div class="image-grid">
+            <img src="https://lochlomondtravel.com/images/01_galactica_craft__1572864511_195-171-191-66.jpg"
+                alt="Galactica Rollercoaster" />
+            <img src="https://lochlomondtravel.com/images/the-smiler.jpg" alt="The Smiler Rollercoaster" />
+        </div>
+
+        <div class="main-columns">
+            <div class="col-left">
+                <div class="hotel-box">
+                    <h3>Your Accommodation</h3>
+                    <ul class="hotel-list">
+                        <li><strong>Holiday Inn Birmingham North Cannock:</strong> A modern, comfortable hotel offering
+                            a warm welcome and a great base to recharge between two exciting days.</li>
+                        <li><strong>Facilities:</strong> En-suite bedrooms with a TV, free Wi-Fi, and tea/coffee making
+                            amenities. Unwind in the hotel’s lounge and bar area.</li>
+                        <li><strong>Dining:</strong> Relaxing evening meals and hearty breakfasts are included (Dinner,
+                            Bed & Breakfast).</li>
+                    </ul>
+                </div>
+
+                <h3>Trip Highlights</h3>
+
+                <div class="highlight-block">
+                    <span class="highlight-title">Two Days at Alton Towers</span>
+                    <p class="highlight-text">
+                        Entry to the UK's leading theme park is included on both Saturday and Sunday (approx. 4 hours
+                        per day), giving you plenty of time to experience the magic at your own pace!
+                    </p>
+                </div>
+
+                <div class="highlight-block">
+                    <span class="highlight-title">Iconic Rollercoasters</span>
+                    <p class="highlight-text">
+                        Thrill-seekers can take on headline rides like The Smiler for its non-stop twists, Nemesis
+                        Reborn, the straight-down drop of Oblivion, the punchy wooden Wicker Man, and the soaring
+                        Galactica.
+                    </p>
+                </div>
+
+                <div class="highlight-block">
+                    <span class="highlight-title">Family Favourites</span>
+                    <p class="highlight-text">
+                        Enjoy loads of gentler rides and themed areas, including CBeebies Land for younger kids, plus
+                        classic crowd-pleasers like the Runaway Mine Train.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-right">
+                <h3>What's Included?</h3>
+                <ul class="included-list">
+                    <li>Return coach travel with reserved seating</li>
+                    <li>1 Night Dinner, Bed & Breakfast at Holiday Inn Cannock</li>
+                    <li>Entry into Alton Towers on Saturday & Sunday</li>
+                    <li><strong>Two Days Theme Park Entry Included!</strong></li>
+                </ul>
+
+                <h3>Pickup Points</h3>
+                <p class="pickup-text">Ayr, Bathgate, Carlisle, Dundee, Edinburgh, Falkirk, Glasgow, Gretna, Halbeath,
+                    Hamilton, Irvine, Kilmarnock, Paisley.</p>
+
+                <div style="margin-top: 15px;">
+                    <span class="deposit-highlight">Lock in your space for just £35 deposit!</span>
+                    <table class="date-table">
+                        <tr>
+                            <td class="dt-date">Sat 20th Jun 2026</td>
+                            <td class="dt-price">£149pp</td>
+                        </tr>
+                        <tr>
+                            <td class="dt-date">Sat 11th Jul 2026</td>
+                            <td class="dt-price">£149pp</td>
+                        </tr>
+                        <tr>
+                            <td class="dt-date">Sat 25th Jul 2026</td>
+                            <td class="dt-price">£149pp</td>
+                        </tr>
+                        <tr>
+                            <td class="dt-date">Sat 1st Aug 2026</td>
+                            <td class="dt-price">£149pp</td>
+                        </tr>
+                        <tr>
+                            <td class="dt-date">Sat 8th Aug 2026</td>
+                            <td class="dt-price">£149pp</td>
+                        </tr>
+                        <tr>
+                            <td class="dt-date">Sat 26th Sep 2026</td>
+                            <td class="dt-price">£149pp</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer-cta">
+            <a href="https://lochlomondtravel.com/itineraries/9884-alton-towers" class="btn-book" target="_blank"
+                rel="noopener">
+                Book Online Now
+            </a>
+        </footer>
+    </div>
+
+</body>
+
+</html>

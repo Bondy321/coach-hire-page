@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loch Lomond Travel - Legoland</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        :root {
+            --font-main: 'Raleway', sans-serif;
+            --color-primary: #00609C;
+            --color-secondary: #B3D9FF;
+            --color-highlight: #FF7757;
+            --color-green: #27ae60;
+            --color-text: #333;
+            --color-white: #FFFFFF;
+            --color-bg: #F8F9FA;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--color-text);
+            line-height: 1.35;
+            background: #555;
+            display: flex;
+            justify-content: center;
+            padding: 2rem 0;
+        }
+
+        /* A4 Page */
+        .brochure-page {
+            width: 210mm;
+            height: 297mm;
+            background: var(--color-white);
+            padding: 12mm 15mm;
+            position: relative;
+            display: grid;
+            grid-template-rows: auto auto 1fr auto;
+            gap: 0;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Badge */
+        .duration-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--color-highlight);
+            color: var(--color-white);
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 8px 15px;
+            border-bottom-left-radius: 4px;
+            z-index: 10;
+            box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-bottom: 2px solid var(--color-primary);
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+            margin-top: 15px;
+            padding-right: 120px;
+        }
+
+        .header-text h1 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            line-height: 1.1;
+            margin-bottom: 4px;
+        }
+
+        .header-price {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--color-highlight);
+        }
+
+        .logo {
+            position: absolute;
+            top: 45px;
+            right: 15mm;
+            width: 110px;
+            height: auto;
+        }
+
+        /* Image Grid with 22vh Height */
+        .image-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 12px;
+            align-items: start;
+        }
+
+        .image-grid img {
+            display: block;
+            width: 100%;
+            height: 22vh;
+            object-fit: cover;
+            border-radius: 4px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Main Columns */
+        .main-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            min-height: 0;
+            overflow: hidden;
+            align-items: start;
+        }
+
+        /* Headings */
+        h3 {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--color-secondary);
+            margin-bottom: 10px;
+            padding-bottom: 4px;
+            display: inline-block;
+        }
+
+        /* Hotel Box */
+        .hotel-box {
+            background: var(--color-bg);
+            padding: 12px 14px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            border-left: 4px solid var(--color-highlight);
+        }
+
+        .hotel-list {
+            list-style: none;
+            font-size: 0.8rem;
+        }
+
+        .hotel-list li {
+            margin-bottom: 4px;
+            padding-left: 10px;
+            position: relative;
+            line-height: 1.3;
+        }
+
+        .hotel-list li::before {
+            content: "•";
+            color: var(--color-primary);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Trip Highlights */
+        .highlight-block {
+            margin-bottom: 15px;
+        }
+
+        .highlight-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .highlight-text {
+            font-size: 0.8rem;
+            color: #444;
+            line-height: 1.4;
+        }
+
+        /* Logistics & Inclusions */
+        .included-list {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+
+        .included-list li {
+            position: relative;
+            padding-left: 18px;
+            font-size: 0.8rem;
+            margin-bottom: 6px;
+            line-height: 1.3;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .included-list li::before {
+            content: "✓";
+            color: var(--color-green);
+            font-weight: 800;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Pickups & Info */
+        .pickup-text {
+            font-size: 0.75rem;
+            color: #555;
+            line-height: 1.3;
+            background: #f9f9f9;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #eee;
+            margin-bottom: 8px;
+        }
+
+        /* Pricing Grid */
+        .deposit-highlight {
+            font-size: 0.9rem;
+            color: var(--color-primary);
+            font-weight: 800;
+            margin-top: 5px;
+            display: block;
+            border-top: 1px dashed #ccc;
+            padding-top: 8px;
+            margin-bottom: 8px;
+        }
+
+        .dates-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px 15px;
+            font-size: 0.8rem;
+        }
+
+        .date-item {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 2px;
+        }
+
+        .dt-date {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .dt-price {
+            color: var(--color-highlight);
+            font-weight: 800;
+        }
+
+        /* Footer */
+        .footer-cta {
+            padding-top: 12px;
+            text-align: center;
+            border-top: 1px solid #eee;
+            margin-top: auto;
+        }
+
+        .btn-book {
+            display: inline-block;
+            background: #007DC3;
+            color: var(--color-white);
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 10px 40px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Print rules */
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+
+            html,
+            body {
+                margin: 0 !important;
+                padding: 0 !important;
+                background: none !important;
+            }
+
+            body {
+                display: block !important;
+            }
+
+            .brochure-page {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="brochure-page">
+        <div class="duration-badge">3 Days, 2 Nights</div>
+
+        <header class="page-header">
+            <div class="header-text">
+                <h1>Legoland</h1>
+                <span class="header-price">From Only £219pp</span>
+            </div>
+            <img src="https://lochlomondtravel.com/images/general/logo.png" alt="Loch Lomond Travel Logo"
+                class="logo" />
+        </header>
+
+        <div class="image-grid">
+            <img src="https://lochlomondtravel.com/images/legoland-beginning.jpg" alt="Legoland Entrance" />
+            <img src="https://lochlomondtravel.com/images/legoland.jpg" alt="Legoland Miniland" />
+        </div>
+
+        <div class="main-columns">
+            <div class="col-left">
+                <div class="hotel-box">
+                    <h3>Your Accommodation</h3>
+                    <ul class="hotel-list">
+                        <li><strong>Britannia Basingstoke Country Hotel (2 Nights):</strong> A charming hotel that
+                            combines old-world character with modern amenities and attractive landscaped courtyards.
+                        </li>
+                        <li><strong>Facilities:</strong> Relax in comfortable en-suite rooms and take advantage of
+                            extensive leisure facilities, including a heated pool, spa, sauna, and steam rooms.</li>
+                        <li><strong>Dining:</strong> Enjoy dining at the on-site restaurant and unwind in the bar
+                            offering beverages and light bites (Dinner, Bed & Breakfast).</li>
+                    </ul>
+                </div>
+
+                <h3>Trip Highlights</h3>
+
+                <div class="highlight-block">
+                    <span class="highlight-title">Legoland Windsor</span>
+                    <p class="highlight-text">
+                        Enjoy a full day of fun and excitement at Legoland Windsor, the ultimate family theme park!
+                        Packed with over 55 rides, shows, and attractions, Legoland offers something for everyone.
+                    </p>
+                </div>
+
+                <div class="highlight-block">
+                    <span class="highlight-title">Rides & Attractions</span>
+                    <p class="highlight-text">
+                        Explore themed areas like Miniland, where famous landmarks are recreated with millions of Lego
+                        bricks, or take a thrilling ride on The Dragon rollercoaster. Whether you’re building, riding,
+                        or just soaking up the colourful atmosphere, Legoland promises an unforgettable day out for kids
+                        and adults alike.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-right">
+                <h3>What's Included?</h3>
+                <ul class="included-list">
+                    <li>Return coach travel with reserved seating</li>
+                    <li>2 Nights Dinner, Bed & Breakfast at The Britannia Basingstoke Country Hotel</li>
+                    <li><strong>Full day excursion to Legoland (Ticket Included)</strong></li>
+                </ul>
+
+                <h3>Pickup Points</h3>
+                <p class="pickup-text">Ayr, Bathgate, Carlisle, Dundee, Edinburgh, Glasgow, Gretna, Halbeath, Hamilton,
+                    Irvine, Kilmarnock.</p>
+
+                <div style="margin-top: 10px;">
+                    <span class="deposit-highlight">Lock in your space with just a £35 deposit!</span>
+                    <div class="dates-container">
+                        <div class="date-item"><span class="dt-date">Fri 26th Jun</span> <span
+                                class="dt-price">£219pp</span></div>
+                        <div class="date-item"><span class="dt-date">Fri 31st Jul</span> <span
+                                class="dt-price">£219pp</span></div>
+                        <div class="date-item"><span class="dt-date">Fri 25th Sep</span> <span
+                                class="dt-price">£219pp</span></div>
+                        <div class="date-item"><span class="dt-date">Fri 16th Oct</span> <span
+                                class="dt-price">£219pp</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer-cta">
+            <a href="https://lochlomondtravel.com/itineraries/10076-legoland" class="btn-book" target="_blank"
+                rel="noopener">
+                Book Online Now
+            </a>
+        </footer>
+    </div>
+
+</body>
+
+</html>
